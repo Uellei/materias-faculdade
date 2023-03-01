@@ -1,3 +1,3 @@
-Aqui estão algumas tarefas realizadas durante a faculdade, as materias são:
-C - Programação Estruturada
+Aqui estão algumas tarefas realizadas durante a faculdade, divididas em materias:  
+C - Programação Estruturada  
 C - Estrutura de Dados
