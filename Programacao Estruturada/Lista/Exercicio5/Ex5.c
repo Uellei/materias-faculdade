@@ -11,6 +11,7 @@ int main(){
         scanf("%i", &nums[i]);
     }
 
+    // Ordena os números em ordem crescente, salvando em uma váriavel temporária e arrumando a ordem
     for(i=0;i<TAM-1;i++){
         for (j=0;j<TAM-i-1;j++){
             if(nums[j] > nums[j+1]){
@@ -36,10 +37,10 @@ int main(){
             }
         }
     }
-
+    // Confere os números iguais depois de ordenar os dois
     for(i=0;i<TAM;i++){
         for(j=0;j<TAM;j++){
-                if(num[i] == nums[j]){
+                if(nums[i] == num[j]){
                 printf("%i: %i -- %i\n", num[i], i, j);
             }
         }

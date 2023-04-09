@@ -3,16 +3,14 @@
 
 int fat(int n){
     if ( n < 0 ) return(-1);
-
     if ( n == 0 || n == 1 ) return(1);
-
-    return( n * fat(n-1) );
+    else return( n * fat(n-1) );
 
 }
 
 void main(){
 
-    int k;
+    int k=3;
 
     printf( "\nFatorial de %i = %i", k, fat(k));
 
