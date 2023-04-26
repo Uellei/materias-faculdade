@@ -59,7 +59,7 @@ int main(){
 lista* insere(lista *no, int valor){
     lista *novo = (lista*) malloc(sizeof(lista)); // Aloca dinamicamente a memória para um novo nó da lista
     novo->item = valor; // Atribui o valor passado como parâmetro(valor) á variavel item do novo nó.
-    novo->prox = no; // Faz com que o novo nó aponte para o antifo início da lista 'no' através do campo 'prox'. Dessa forma, o novo nó se torna o novo início da lista;
+    novo->prox = no; // Faz com que o novo nó aponte para o antigo início da lista 'no' através do campo 'prox'. Dessa forma, o novo nó se torna o novo início da lista;
     return novo;
 }
 
