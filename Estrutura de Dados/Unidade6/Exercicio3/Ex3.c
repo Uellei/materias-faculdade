@@ -5,7 +5,6 @@ typedef struct n{
     int info;
     struct n *prox;
 }no;
-
 typedef struct f{
     no *inicio;
     no *fim;
