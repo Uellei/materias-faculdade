@@ -92,3 +92,21 @@ begin
 	set @cpf = concat(@cpf, substring(@cpf_sem_formato,10,2)) -- Concatena os últimos 2 números do cpf sem formato, XXX-XXX-XXX-XX
 	return @cpf -- Retorna o cpf formatado
 end
+
+-- Exemplo 
+-- Conferir email, precisa ter um arroba(não pode ser o primeiro caractere) e terminar com .com ou .com.br
+create function confere_email
+(
+	@email varchar(100)
+)
+	returns varchar(10)
+as
+begin
+	declare @confere varchar(10)
+	if CHARINDEX('@', @email) > 1 and (RIGHT(@email, 4) = '.com' or RIGHT(@email, 7) = '.com.br')
+		set @confere = 'Válido'
+	else
+		set @confere = 'Inválido'
+
+	return @confere
+end
