@@ -92,17 +92,27 @@ int main() {
     // Executa a função
     separa_fila(f, f_impares, f_pares);
 
-    // Remove todos os elementos da fila impares, ja a função remover retorna o elemento que foi removido, vai printar todos os elementos impares
+    // Remove todos os elementos da fila impares, ja que a função "remover" retorna o elemento que foi removido, vai printar todos os elementos impares
     printf("Valores ímpares:\n");
     while (!vazia(f_impares)) {
         printf("%d\n", remover(f_impares));
     }
+    // Ou pode simplesmente usar a função "imprime"
+    /*
+    void imprime(fila *f){
+    no* aux;
+    for(aux=f->inicio;aux!=NULL;aux=aux->prox)
+        printf("%f\n", aux->info);
+    }
+    imprime(f_impares)
+    */
 
     // Remove todos os elementos da fila pares, ja a função remover retorna o elemento que foi removido, vai printar todos os elementos pares
     printf("Valores pares:\n");
     while (!vazia(f_pares)) {
         printf("%d\n", remover(f_pares));
     }
+    // Ou usar função imprime
 
     libera(f);
     libera(f_impares);
