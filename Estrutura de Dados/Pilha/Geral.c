@@ -84,7 +84,7 @@ void libera(pilha *p){
 }
 /*
     1° Criar um ponteiro auxiliar do tipo "no" que receba o p->topo
-    2° Equanto auxiliar for != NULL
+    2° Equanto o topo(auxiliar) for != NULL
     3° Criar malloc temp do tipo "no"
     4° Liberar o auxiliar
     5° Igualar o auxiliar ao temporario
