@@ -61,15 +61,16 @@ void libera(fila *f){
 
 void preenche(fila *f1, fila *f2, fila *retorno){
     while(!vazia(f1) && !vazia(f2)){
-        if(retira(f1) < retira(f2))
+        if(f1->inicio->info < f2->inicio->info){
             insere(retorno, retira(f1));
-        else
+        } else{
             insere(retorno, retira(f2));
+        }
     }
-    while(!vazia(f1)){
+     while (!vazia(f1)) {
         insere(retorno, retira(f1));
     }
-    while(!vazia(f2)){
+    while (!vazia(f2)) {
         insere(retorno, retira(f2));
     }
 }
@@ -80,13 +81,14 @@ int main(){
     fila *retorno = cria();
 
     insere(f1, 1.0);
-    insere(f1, 3.0);
+    insere(f1, 2.0);
+    insere(f1, 4.0);
     insere(f1, 5.0);
     insere(f1, 7.0);
-    insere(f1, 9.0);
+    insere(f1, 8.1);
 
-    insere(f2, 2.0);
-    insere(f2, 4.0);
+    insere(f2, 3.0);
+    insere(f2, 6.0);
     insere(f2, 6.0);
     insere(f2, 8.0);
     insere(f2, 10.0);

@@ -81,7 +81,7 @@ int main(){
 
     SeparaParImpar(p, par, impar);
 
-    imprime(par);
-    printf("\n");
     imprime(impar);
+    printf("\n");
+    imprime(par);
 }
