@@ -8,10 +8,11 @@ typedef struct tree{
 }arv;
 
 int conta_no(arv* a){
-    if(a == NULL){
-        return 0;
-    } else {
-        return 1 + conta_no(a->esq) + conta_no(a->dir);
+    if(a != NULL){
+        conta_no(a->dir);
+        if(a->esq != NULL || a->dir != NULL){
+            return 1 + conta_no(a->esq) + conta_no(a->dir);
+        }
     }
 }
 
@@ -71,11 +72,11 @@ int main(){
     arv* arvore = cria();
 
     arvore = insere(arvore, 20);
-    arvore = insere(arvore, 15);
     arvore = insere(arvore, 7);
-    arvore = insere(arvore, 3);
     arvore = insere(arvore, 10);
+    arvore = insere(arvore, 15);
     arvore = insere(arvore, 5);
+    arvore = insere(arvore, 3);
 
 
     int num_nos = conta_no(arvore);
