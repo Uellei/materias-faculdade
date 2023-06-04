@@ -1,3 +1,8 @@
+/*
+    Uma fila é uma estrutura de dados do tipo FIFO(First-In-First-Out), o primeiro elemento a ser inserido na fila será o primeiro a ser removido. 
+    Semelhando a uma fila de pessoas em um banco, onde o primeiro a chegar é o primeiroa ser atendido.
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -18,10 +23,28 @@ fila* cria(){
     f->fim = NULL; // Aponta o fim da fila para NULL
     return f; // Retorna o ponteiro para a nova fila
 }
+/*
+    Função cria:
+    Descrição: Essa função cria e inicializa uma fila vazia.
+    Retorno: Retorna um ponteiro para a fila recém-criada.
+    Memorização:
+        - Aloca memória para a estrutura fila.
+        - Inicializa os ponteiro de início e fim como NULL.
+        - Retorna o ponteiro para a fila.
+*/
 
 int vazia (fila* f){
     return(f->inicio==NULL);
 }
+/*
+    Função vazia:
+    Descrição: Essa função verifica se a fila esta vazia.
+    Parâmetros: Recebe um ponteiro para a fila "f".
+    Retorno: Retorna 1 se a fila estiver vazia e 0 caso contrário.
+    Memorização:
+        - Verifica se o ponteiro de início da fila é NULL.
+        - Se for, fila vazia, então retorna 1. Caso contrário, retorna 0.
+*/
 
 void insere(fila* f, float dado){
     no* novo = (no*) malloc(sizeof(no)); // Declara um ponteiro do tipo "no" que recebe o endereço de uma área de memória alocada dinamicamente
@@ -33,6 +56,18 @@ void insere(fila* f, float dado){
     if(f->inicio == NULL) // Verifia se a lista está vazia
         f->inicio = f->fim; // Atualiza o ponteiro "inicio" da fila para apontar para o "novo" nó, indicando agora que é o primeiro nó da fila
 }
+/*
+    Função insere:
+    Descrição: Essa função insere um elemento no fim da fila.
+    Parâmetros: Recebe um ponteiro para a fila "f" e o valor do novo elemento "dado".
+    Memorização:
+        - Cria um novo nó e aloca memória para ele.
+        - Define o valor "dado" para esse novo nó.
+        - Define o campo "prox" do novo nó como NULL.
+        - Verifica se a fila não estava vazia e ajusta o ponteiro "prox" do último nó para apontar para o novo nó.
+        - Atualiza o ponteiro de fim para o novo nó.
+        - Se a fila estava vazia(se o ponteiro de início é NULL), atualiza o ponteiro de início para o novo nó.
+*/
 
 float remove(fila *f){
     float temp; // Declara uma função temporaria
@@ -48,6 +83,19 @@ float remove(fila *f){
         f->fim = NULL; // Faz o ponteiro "fim" apontar para "NULL"
     return temp; // Retorna o valor do primeiro elemento da fila que foi removido
 }
+/*
+    Função remove:
+    Descrição: Essa função remove o elemento do início da fila.
+    Parâmetros: Recebe um ponteiro para a fila "f".
+    Retorno: Retorna o valor do elemento removido.
+    Memorização:
+        - Verifica se a fila está vazia, se estiver imprime uma mensagem de erro e encerra o programa.
+        - Caso contrário, armazena o valor do elemento no início da fila em uma variável "temp".
+        - Atualiza o ponteiro de início para apontar para o próximo nó.
+        - Libera a memória do nó removido.
+        - Verifica se a fila ficou vazia(ponteiro de início == NULL), atualizando o ponteiro de fim para NULL.
+        - Retorna o valor armazenado em "temp".
+*/
 
 void imprime(fila *f){
     no* aux;
