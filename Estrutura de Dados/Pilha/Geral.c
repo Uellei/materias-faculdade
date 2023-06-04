@@ -1,3 +1,7 @@
+/* 
+    É uma coleção linear que segue a abordagem Last-In-First-Out (LIFO), ou seja, o último elemento inserido é o primeiro a ser removido. 
+    Amplamente utilizada em algoritmos e programas que requerem um comportamento de dados no estilo LIFO.
+*/
 #include <stdlib.h>
 #include <stdio.h>
 
