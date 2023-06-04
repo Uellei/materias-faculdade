@@ -1,31 +1,39 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 #define MAX 7
 
 typedef struct p{
-    int n; // Quantidade de elementos
+    int n;// Quantidade elementos
     float vet[MAX];
 }pilhavet;
 
 int cheia(pilhavet p){
-    return p.n == MAX;
+    return (p.n == MAX);
 }
 
-int main() {
-    pilhavet p1 = {5, {1.0, 2.0, 3.0, 4.0, 5.0}};
-    pilhavet p2 = {MAX, {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0}};
-
-    if (cheia(p1)) {
-        printf("Pilha 1 esta cheia\n");
-    } else {
-        printf("Pilha 1 nao esta cheia\n");
+void push(pilhavet *p, float dado){
+    if(cheia(*p)){
+        printf("Erro: Pilha cheia!\n");
+        exit(1);
     }
+    p->vet[p->n] = dado;
+    p->n++;
+}
 
-    if (cheia(p2)) {
-        printf("Pilha 2 esta cheia\n");
-    } else {
-        printf("Pilha 2 nao esta cheia\n");
-    }
-
-    return 0;
+int main(){
+    pilhavet pilha;
+    pilha.n = 0;
+    
+    push(&pilha, 1.5);
+    push(&pilha, 2.5);
+    push(&pilha, 3.5);
+    push(&pilha, 4.5);
+    push(&pilha, 5.5);
+    push(&pilha, 6.5);
+    
+    if(cheia(pilha)){
+        printf("A pilha esta cheia\n");
+    } else
+        printf("A pilha não esta cheia\n");
 }

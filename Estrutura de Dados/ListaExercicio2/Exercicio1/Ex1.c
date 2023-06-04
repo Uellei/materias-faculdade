@@ -42,7 +42,7 @@ int desempilha(pilha *p){
 void libera(pilha *p){
     no *aux = p->topo;
     while(aux!=NULL){
-        no *temp = (no*) malloc(sizeof(temp));
+        no *temp = aux->prox;
         free(aux);
         aux = temp;
     }
