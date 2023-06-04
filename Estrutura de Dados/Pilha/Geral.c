@@ -10,23 +10,32 @@ typedef struct p{
     no *topo;
 }pilha;
 
-// Cria a pilha para conseguir armazenar e manipular os elementos
+
 pilha* cria(){
     pilha *p = (pilha*) malloc(sizeof(pilha)); // Aloca dinamicamente a memória necessária para a criação de uma nova pilha
     p->topo = NULL; // Aponta o topo da pilha para NULL
     return p; // Retorna o ponteiro para a nova pilha
 }
 /*
-    1° Criar um malloc para alocar a memória de um ponteiro do tipo "pilha"
-    2° Atribuir NULL para o topo da pilha(p->topo)
-    3° Retornar o ponteiro
+    Função cria:
+    Descrição: Essa função cria e inicializa uma pilha vazia.
+    Retorno: Retorna um ponteiro para a pilha recém-criada.
+    Memorização: 
+        - Aloca memória para a estrutura da pilha 
+        - Inicializ ao topo com NULL
+        - Retorna o ponteiro para a pilha
 */
 
 int vazia(pilha *p){
     return (p->topo == NULL);
 }
 /*
-    1° Confere se o topo da pilha é NULL, e se for ele retorna, se não ele continua conferindo
+    Função vazia:
+    Descrição: Essa função confere se a pilha está vazia, ou seja, se o topo aponta para NULL
+    Parâmetro: Recebe um ponteiro para a pilha "p"
+    Retorno: Retorna  1 se a pilha estiver vazia e 0 caso contrário
+    Memorização:
+        - Condicional para verificar se "p->topo" é igual a NULL
 */
 
 void push(pilha *p, float dado){
@@ -36,10 +45,14 @@ void push(pilha *p, float dado){
     p->topo = novo; // Atualiza o ponteiro "topo" da pilha "p" para apontar para o novo nó, fazendo com que ele se torne o novo topo da pilha
 }
 /*
-    1° Cria um malloc para alocar a memória de um ponteiro novo do tipo "no"
-    2° Sabendo que a struct "no" tem um info, atribui-se para novo->info o valor "dado" passado como parâmetro na função
-    3° Sabendo que a struct "no" tem um struct *n prox, faz com que o novo->prox aponte para o antigo valor que estava no topo
-    4° p->topo agora vai apontar para o novo elemento "novo", virando o topo da pilha
+    Função push:
+    Descrição: Adiciona um novo elemento no topo da pilha
+    Parâmetros: Recebe um ponteiro para a pilha "p" e o valor do novo elemento "dado"
+    Memorização:
+        - Aloca memória para um novo nó
+        - Define o valor "dado" para esse novo nó
+        - Faz o novo nó apontar para o antigo topo da pilha
+        - Atualiza o topo para apontar para o novo nó
 */
 
 float pop(pilha *p){
@@ -54,12 +67,15 @@ float pop(pilha *p){
     return temp; // Retorna o valor do elemento que foi removido
 }
 /*
-    1° Condicional para conferir se a pilha esta vazia ou não
-    2° Se não for vazia, armazenar o valor do topo da pilha(p->topo->info) em uma variavel temporaria
-    3° Criar um ponteiro do auxiliar do tipo no, para apontar para o topo atual da pilha
-    4° p->topo agora recebe aux->prox, sendo assim, o topo agora é o proximo elemento que estava embaixo
-    5° Liberar a memória alocada para o nó auxiliar que foi removido
-    6° Retornar o valor do elemento que foi removido(p->topo->info)
+    Função pop:
+    Descrição: Remove e retorna o elemento do topo da pilha
+    Parâmetro: Recebe um ponteiro para a pilha "p"
+    Retorno: Retorn ao valor do elemento removido do topo da pilha
+    Memorização:
+        - Verifica se a pilha está vazia, se estiver imprime uma mensagem de erro e encerra o programa
+        - Caso contrário, armazena o valor do topo em uma variável temporária
+        - Atualiza o topo para apontar para o próximo elemento
+        - Retorna o valor armazenado na variável temporária
 */
 
 void imprime(pilha *p){
@@ -69,8 +85,13 @@ void imprime(pilha *p){
     }
 }
 /*
-    1° Criar um ponteiro auxiliar do tipo "no"
-    2° Fazer um for com aux=p->topo, enquando aux!=NULL, indo sempro para o proximo, aux=aux->prox, ele começa no topo e vai descendo ate aux ser NULL
+    Função imprime:
+
+Descrição: Essa função imprime os elementos da pilha, começando do topo e indo até a base.
+Parâmetro: Recebe um ponteiro para a pilha p.
+Memorização: 
+    - Utiliza um ponteiro auxiliar "aux" para percorrer a pilha a partir do topo
+    - Itera enquanto o "aux" não for NULL, imprimindo o valor "aux->info" e movendo o "aux" para o próximo nó
 */
 
 void libera(pilha *p){
@@ -83,9 +104,11 @@ void libera(pilha *p){
     free(p);
 }
 /*
-    1° Criar um ponteiro auxiliar do tipo "no" que receba o p->topo
-    2° Equanto o topo(auxiliar) for != NULL
-    3° Criar malloc temp do tipo "no"
-    4° Liberar o auxiliar
-    5° Igualar o auxiliar ao temporario
+Função libera:
+Descrição: Essa função libera a memória alocada para a pilha e seus nós.
+Parâmetro: Recebe um ponteiro para a pilha p.
+Memorização: 
+    - Utiliza um ponteiro auxiliar "aux" para percorrer a pilha a partir do topo
+    - Itera enquanto o "aux" não for NULL, liberando a memória do nó atual "aux" e movendo "aux" para o próximo nó
+    - Libera a memória da estrutura da pilha "p"
 */
