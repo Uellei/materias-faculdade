@@ -110,3 +110,41 @@ void apaga(no **hash, float valor){
     }
     free(aux); // libera o nó aux da memória.
 }
+
+no* busca(no **hash, float valor){
+    int pos = f_hash(valor);
+    no *lista = hash[pos];
+    while(lista != NULL){
+        if(valor == lista->info){
+            return lista;
+        }
+    }
+    return NULL;
+}
+
+void imprime(no **hash){
+    printf("\nTabela Hash\n");
+    int i;
+    for(i=0;i<TAM_MAX;i++){
+        printf("HASH[%i]\t", i);
+        no *lista = hash[i];
+        while(lista != NULL){
+            printf(" -> %2.f\t", lista->info);
+            lista = lista->prox;
+        }
+        printf("\n");
+    }
+}
+
+void libera(no **hash){
+    int i;
+    no *aux;
+    for(i=0;i<TAM_MAX;i++){
+        no **lista = &hash[i];
+        while(*lista != NULL){
+            aux = (*lista)->prox;
+            free(*lista);
+            *lista = aux;
+        }
+    }
+}

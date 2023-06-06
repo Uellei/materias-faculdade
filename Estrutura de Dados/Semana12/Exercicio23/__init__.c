@@ -14,7 +14,7 @@ int f_hash(float valor) {
     return abs(valor) % TAM_MAX;
 }
 /**
- Inicializa a tabela hash
+Inicializa a tabela hash
  */
 void inicializa(no **hash) {
     int i;
@@ -22,35 +22,32 @@ void inicializa(no **hash) {
         hash[i]=NULL;
 }
 
-void insere(no **hash, float valor) {
-    int pos = f_hash(valor);//Retorna o valor que será utilizado como posição segundo DH.
-    no* novo = (no *) malloc(sizeof(no)); //Aloca um ponteiro de ponteiro para a estrutura HASH
-    if (novo==NULL) { //No caso em que o novo elemento aponte para NULL, um erro na alocação aconteceu.
+void insere(no **hash, float valor){
+    int pos = f_hash(valor); // Retorna uma posição do hash para inserir o valor
+    no *novo = (no*) malloc(sizeof(no));
+    if(novo == NULL){
         printf("Erro!\n");
         exit(1);
     }
-    novo->info=valor; // Preenche o novo elemento com um valor
-    novo->prox=NULL;  //NULL para o próximo elemento na estrutura de alocação HASH
-    no **lista = &hash[pos]; //Aqui, segundo a posição do elemento na tabela HASH, pega o endereço da lista de elementos da posição /e assina para o hash.
-    if (*lista == NULL) { //Se a Lista ainda não estiver sendo utilizada, significa que é o primeiro elemento dessa posição
-        *lista = novo; //Então o novo elemento é atribuído para este elemento na lista
-        printf("Inserido HASH[%d]\n",pos); // Imprimimos então o elemento HASH inserido na posição
-    }
-    else { //Caso contrário, caso o primeiro elemento na tabela HASH tenha sido preenchido, o próximo elemento que compartilha a posiçãoo é então inserido na fila, ou seja, quando há colisão, o elemento é inserido em uma fila.
-        printf("Inserido com Colisao HASH[%d]\n",pos);//imprime a posição que gerou a colisão.
-        no *temp= hash[pos]; //retorna o ponteiro da posição inicial da fila de colisões
-        if(temp->info==valor)//checa se o valor a ser inserido, é o mesmo valor da posição inicial da fila de colisões
-            printf("Valor %.2f ja inserido\n",valor); //imprime o valor
-        
-        /**
-         Checa todos os elemento da lista de colisões e informa se há valores repetidos
-         */
-        while (temp->prox != NULL){
-            if(temp->info==valor)
-                printf("Valor %.2f ja inserido\n",valor);
-            temp=temp->prox;
+    novo->info = valor;
+    novo->prox = NULL;
+    no **lista = &hash[pos]; // O ponteiro "lista" é inicializado com o endereço do elemento do hash na posição "pos".
+    if(*lista == NULL){ // Se o elemento do hash na posição "pos" está vazio 
+        *lista = novo; // O novo nó é inserido nessa posição, atualizando o ponteiro "lista" para apontar para o novo nó.
+        printf("Inserido HASH[%i]\n", pos);
+    } else { // Se o elemento na posição "pos" já tiver um nó, ocorre uma colisão.
+        printf("Inserido com Colisao HASH[%i]\n", pos);
+        no *temp = hash[pos]; // Retorna o ponteiro da posição inicial da fila de colisões
+        if(temp->info == valor){ // Verifica se o valor já esta presente
+            printf("Valor %.2f ja inserido\n", valor);
         }
-        temp->prox=novo;//Insere o novo elemento no final da lista.
+        while(temp->prox != NULL){ // Percorre até chegar no final da lista encadeada (NULL)
+            if(temp->info == valor){ // Verifica se o valor já existe no meio da lista
+                printf("Valor %2.f ja inserido\n", valor);
+            }
+            temp = temp->prox; // Atualiza o campo para o próximo
+        }
+        temp->prox = novo; // Atualiza o campo "prox" do último nó para apontar para o novo nó.
     }
 }
 
@@ -112,8 +109,6 @@ void libera(no **hash) {
 int main(int argc, const char * argv[]) {
     
     int numero = 11;
-    
-    numero%2==0 ? printf("true"): printf("false");
     
     no *tabela_hash[TAM_MAX];
     inicializa(tabela_hash);
