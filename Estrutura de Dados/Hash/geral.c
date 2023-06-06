@@ -63,7 +63,7 @@ void insere(no **hash, float valor){
         printf("Inserido HASH[%i]\n", pos);
     } else { // Se o elemento na posição "pos" já tiver um nó, ocorre uma colisão.
         printf("Inserido com Colisao HASH[%i]\n", pos);
-        no *temp = hash[pos]; // Retorna o ponteiro para o nó na posição "pos"
+        no *temp = hash[pos]; // Retorna o ponteiro da posição inicial da fila de colisões
         if(temp->info == valor){ // Verifica se o valor já esta presente
             printf("Valor %.2f ja inserido\n", valor);
         }
