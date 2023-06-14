@@ -1,7 +1,7 @@
 /*/**/
 
 -- FORMATA UM CPF SEM FORMATAÇÃO
-CREATE FUNCTION Trata_CPF
+CREATE FUNCTION TrataCPF
 (
 	@cpf_sem_formato VARCHAR(11)
 )
