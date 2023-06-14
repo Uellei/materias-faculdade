@@ -64,12 +64,9 @@ BEGIN
     
     RETURN @Resultado
 END
-Você pode usar essa função passando o tipo de operação desejada ('Adicao', 'Subtracao', 'Multiplicacao', 'Divisao', 'Exponenciacao' ou 'RaizQuadrada') e os números em que a operação será aplicada. A função retornará o resultado correspondente.
 
-Exemplo de uso:
+-- EXEMPLOS DE USO
 
-sql
-Copy code
 SELECT dbo.Calculadora('Adicao', 5, 3) AS Soma
 -- Resultado: 8
 
