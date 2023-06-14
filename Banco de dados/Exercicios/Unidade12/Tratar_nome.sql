@@ -22,5 +22,5 @@ SELECT dbo.TratarNome('silvio') AS NomeTratado
 SELECT dbo.TratarNome('JOAO') AS NomeTratado
 -- Resultado: Joao
 
-SELECT dbo.TratarNome('ana MARIA') AS NomeTratado
--- Resultado: Ana maria
+SELECT dbo.TratarNome('wESllEy') AS NomeTratado
+-- Resultado: Weslley
