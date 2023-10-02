@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [['$','$'], ['\\(','\\)']]}});</script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS": {"availableFonts":["TeX"],"scale": 150}});</script>
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+</style>
+
+</head>
+<body>
+<h1 id="estudo-comparativo-entre-linguagens-de-programa%C3%A7%C3%A3o">Estudo Comparativo entre Linguagens de Programação.</h1>
+<p>O objetivo é avaliar três critérios fundamentais - <code>Legibilidade</code>, <code>Facilidade de Escrita</code> e <code>Confiabilidade</code> - para auxiliar na compreensão das vantagens e desvantagens dessas linguagens no contexto do desenvolvimento de software</p>
+<h2 id="1-legibilidade">1. Legibilidade</h2>
+<h3 id="11-simplicidade-geral">1.1 Simplicidade Geral</h3>
+<ul>
+<li><code>Julia:</code> Sua sintaxe é limpa e semelhante a outras linguagens de programação como Python e MATLAB, facilitando a compreensão do código.</li>
+<li><code>Python:</code> A legibildiade do python é uma das suas características marcantes, graças a sua ênfase na clareza e no uso de identação para definir blocos de código.</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># Julia</span>
+<span class="hljs-keyword">function</span> somar(a, b)
+    <span class="hljs-keyword">return</span> a + b
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># Python</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">somar</span><span class="hljs-params">(a, b)</span>:</span>
+    <span class="hljs-keyword">return</span> a + b
+</div></code></pre>
+<h3 id="12-ortogonalidade">1.2 Ortogonalidade</h3>
+<ul>
+<li><code>Julia:</code> Altamente ortogonal, o que significa que as operações são consistentes e previsíveis, realiza a verificação de tipos em tempo de compilação, ajudando a evitar erros de ortogonalidade.</li>
+<li><code>Python</code>: Também é ortogonal, garantindo a consistências nas operações, realiza verificação de tipos em tempo de execução.</li>
+</ul>
+<pre class="hljs"><code><div>a = <span class="hljs-number">20</span>
+b = <span class="hljs-string">"W"</span>
+c = a + b <span class="hljs-comment"># Resultaria em um erro do tipo em tempo de compilação</span>
+</div></code></pre>
+<pre class="hljs"><code><div>a = <span class="hljs-number">20</span>
+b = <span class="hljs-string">"W"</span>
+c = a + b <span class="hljs-comment"># Resultaria em um erro do tipo em tempo de execução</span>
+</div></code></pre>
+<h3 id="13-instru%C3%A7%C3%B5es-de-controle">1.3 Instruções de Controle</h3>
+<ul>
+<li><code>Julia:</code> Oferece estruturas de controle de fluxo familiares, como <code>if</code>, <code>else</code>, <code>for</code> e <code>while</code>.</li>
+<li><code>Python</code>: Possui instruções de controle de fluxo claras e concisas, bem semelhante a Julia.</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>:<span class="hljs-number">5</span>
+    println(i)
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>,<span class="hljs-number">6</span>):
+    print(i)
+</div></code></pre>
+<h3 id="14-tipo-de-dados-e-estruturas">1.4 Tipo de Dados e Estruturas</h3>
+<ul>
+<li><code>Julia:</code> Permite a definição de tipos de dados personalizados e oferece suporte a estruturas de dados eficientes, o que pode facilitar a organização do código.</li>
+<li><code>Python:</code> Possui uma ampla gama de estruturas de dados integradas, o que torna a manipulação de dados mais conveniente. No entando, não é tão flexível quanto Julia para definição de tipos de dados personalizados.</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> Pessoa
+    nome:: <span class="hljs-built_in">String</span>
+    idade:: <span class="hljs-built_in">Int</span>
+<span class="hljs-keyword">end</span>
+
+p1 = Pessoa(<span class="hljs-string">"Waldemar"</span>, <span class="hljs-number">20</span>)
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pessoa</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, nome, idade)</span>:</span>
+        self.nome = nome
+        self.idade = idade
+
+p1 = Pessoa(<span class="hljs-string">"Weslley"</span>, <span class="hljs-number">20</span>)
+</div></code></pre>
+<h3 id="15-sintaxe">1.5 Sintaxe</h3>
+<ul>
+<li><code>Julia:</code> É concisa e intuitiva, tornando o código fácil de entender. A ênfase na vetorização também pode melhorar a legibilidade.</li>
+<li><code>Python:</code> É conhecido por sua sintaxe clara e legível, tornando-a uma escolha popular para iniciantes e desenvolvedores experientes.</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">function</span> multiplicar(a::<span class="hljs-built_in">Int</span>, b::<span class="hljs-built_in">Int</span>)
+    <span class="hljs-keyword">return</span> a * b
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">multiplicar</span><span class="hljs-params">(a: int, b: int)</span> -&gt; int:</span>
+    <span class="hljs-keyword">return</span> a * b
+</div></code></pre>
+<h2 id="2-facilidade-de-escrita">2. Facilidade de Escrita</h2>
+<h3 id="21-simplicidade-e-ortogonalidade">2.1 Simplicidade e Ortogonalidade</h3>
+<p>Exemplos no 1.1, 1.2 e 1.5</p>
+<h3 id="22-suporte-para-abstra%C3%A7%C3%A3o">2.2 Suporte para Abstração</h3>
+<ul>
+<li><code>Julia:</code> Suporta a abstração de alto nível, tornando-o adequado para desenvolvimento de software de alto desempenho e científico.</li>
+<li><code>Python:</code> Altamente abstrato, com libs extensivas para várias tarefas, o que facilita o desenvolvimento rápido de software</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment"># abordagem baseada em tipos abstratos</span>
+<span class="hljs-keyword">abstract type</span> Animal <span class="hljs-keyword">end</span>
+
+<span class="hljs-keyword">struct</span> Cachorro &lt;: Animal
+    nome:: <span class="hljs-built_in">String</span>
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-keyword">struct</span> Gato &lt;: Animal
+    nome:: <span class="hljs-built_in">String</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># Usa abordagem baseada em classes</span>
+<span class="hljs-keyword">from</span> abc <span class="hljs-keyword">import</span> ABC, abstractmethod
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span><span class="hljs-params">(ABC)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, nome)</span>:</span>
+        this.nome = nome
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cachorro</span><span class="hljs-params">(Animal)</span>:</span>
+    <span class="hljs-keyword">pass</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Gato</span><span class="hljs-params">(Animal)</span>:</span>
+    <span class="hljs-keyword">pass</span>
+</div></code></pre>
+<h3 id="23-expressividade">2.3 Expressividade</h3>
+<ul>
+<li><code>Julia:</code> Julia é altamente expressiva, permitindo que os desenvolvedores expressem ideias complexas em código de forma clara e concisa.</li>
+<li><code>Python:</code> Python também é altamente expressiva, tornando-o adequado para prototipagem rápida e desenvolvimento ágil.</li>
+</ul>
+<h2 id="3-confiabildiade">3. Confiabildiade</h2>
+<h3 id="31-verifica%C3%A7%C3%A3o-de-tipos">3.1 Verificação de Tipos</h3>
+<ul>
+<li><code>Julia:</code> Possui um sistema de tipos sólido, que pode detectar erros de tipos em tempo de compilação, aumentando a conficabilidade do código.</li>
+<li><code>Python:</code> Python é dinamicamente tipado, o que significa que a verificação de tipos ocorre em tempo de execução, tornando-o menos rígido em termos de segurança de tipos.</li>
+</ul>
+<h3 id="32-manipula%C3%A7%C3%A3o-de-exce%C3%A7%C3%B5es">3.2 Manipulação de Exceções</h3>
+<ul>
+<li><code>Julia:</code> Oferece suporte completo para manipulação de exceções, permitindo que os desenvolvedores lidem com erros de forma eficaz.</li>
+<li><code>Python:</code> Também possui um sistema robusto de manipulação de exceções, facilitando o tratamento de erros.</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">function</span> dividir(a,b)
+    <span class="hljs-keyword">try</span>
+        <span class="hljs-keyword">return</span> a / b
+    <span class="hljs-keyword">catch</span> <span class="hljs-literal">e</span>
+        println(<span class="hljs-string">"Erro: "</span>, <span class="hljs-literal">e</span>)
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dividir</span><span class="hljs-params">(a,b)</span>:</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">return</span> a / b
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        print(<span class="hljs-string">"Erro: "</span>, e)
+</div></code></pre>
+<h3 id="33-aliasing">3.3 Aliasing</h3>
+<ul>
+<li><code>Julia:</code> Oferece controle sobre o aliasing, permitindo que os desenvolvedores gerenciem efetivamente referências a objetos compartilhados.</li>
+<li><code>Python:</code> Também permite aliasing, mas pode ser necessário ter cuidado ao lidas com objetos mutáveis compartilhados.</li>
+</ul>
+<pre class="hljs"><code><div>a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = a
+b[<span class="hljs-number">1</span>] = <span class="hljs-number">99</span>
+println(a) <span class="hljs-comment"># Imprime [99, 2, 3]</span>
+</div></code></pre>
+<pre class="hljs"><code><div>a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = a
+b[<span class="hljs-number">0</span>] = <span class="hljs-number">99</span>
+print(a) <span class="hljs-comment"># Imprime [99, 2, 3]</span>
+</div></code></pre>
+
+</body>
+</html>
