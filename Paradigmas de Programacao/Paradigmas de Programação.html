@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [['$','$'], ['\\(','\\)']]}});</script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS": {"availableFonts":["TeX"],"scale": 150}});</script>
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+</style>
+
+</head>
+<body>
+<h1 id="resumo-para-prova-n1">RESUMO PARA PROVA N1</h1>
+<h2 id="crit%C3%A9rios-de-avalia%C3%A7%C3%A3o-de-linguagem-de-programa%C3%A7%C3%A3o">Critérios de Avaliação de Linguagem de Programação</h2>
+<h3 id="legibilidade">Legibilidade</h3>
+<ul>
+<li><code>Simplicidade Geral:</code> A linguagem deve ser fácil de entender e não deve ter recursos desnecessariamente complicados.</li>
+<li><code>Ortogonalidade:</code> Os recursos da linguagem devem ser consistentes e não devem se comportar de maneira imprevisível.</li>
+<li><code>Tipos de Dado e Estrutura:</code> Deve haver uma variedade de tipos de dados e estruturas de dados para atender às necessidades dos programadores.</li>
+<li><code>Instrução de controle:</code> A linguagem deve evitar o uso excessivo de instruções de controle como &quot;goto&quot;, que podem tornar o código difícil de seguir.</li>
+<li><code>Sintaxe:</code> Deve ser clara e fácil de ler, evitando ambiguidades.</li>
+</ul>
+<h3 id="facilidade-de-escrita">Facilidade de Escrita</h3>
+<ul>
+<li><code>Expressividade:</code> Permitir que os programadores expressem suas intenções de maneira clara e concisa.</li>
+<li><code>Simplicidade e Ortogonalidade:</code> A simplificade e consistência na forma como os recursos são usados são importantes para facilitar a escrita de código.</li>
+<li><code>Suporte a abstração:</code> Deve fornecer mecanismos para abstrair e reutilizar código de maneira eficaz.</li>
+</ul>
+<h3 id="confiabilidade">Confiabilidade</h3>
+<ul>
+<li><code>Aliasing:</code> Deve evitar problemas de &quot;aliasing&quot;, nos quais duas variáveis podem fazer referẽncia ao mesmo local na memória, causando comportamento inesperado.</li>
+<li><code>Exceções:</code> Deve fornecer maneiras de lidar com exceções e erros de forma robusta e previsível.</li>
+<li><code>Verificação de Tipo:</code> Deve verificar os tipos de dados de forma rigorosa para evitar erros de tipo durante a execução do programa, garantindo assim a confiabilidade do código.</li>
+</ul>
+<h2 id="paradigma-imperativo">Paradigma Imperativo</h2>
+<p>É um dos mais antigos e amplamente utilizados. Se baseia na ideia de que um programa é uma sequência de instruções que alteram o estado de um programa, representado por variáveis e estruturas de dados.</p>
+<ol>
+<li><code>Estado e Variáveis:</code>
+<ul>
+<li>Os programas imperativos são orientados a estado. O estado é representado por variáveis, que podem armazenar valores que mudam ao longo do tempo.</li>
+</ul>
+</li>
+<li><code>Instruções de Controle:</code>
+<ul>
+<li>Loops e condicionais(if-else), são usadas para controlar o fluxo de exceução do programa.</li>
+</ul>
+</li>
+<li><code>Atribuições:</code>
+<ul>
+<li>Permitem que valores sejam atribuitos a variáveis alterando o estado do programa.</li>
+</ul>
+</li>
+<li><code>Sequencialidade:</code>
+<ul>
+<li>As instruções são executadas sequencialmente.</li>
+</ul>
+</li>
+<li><code>Modificação de Estado:</code>
+<ul>
+<li>Frequentemente modificam o estado das variáveis. O mesmo que o código pode produzir resultados diferentes depedendo do estado inicial.</li>
+</ul>
+</li>
+<li><code>Procedimento e Funções:</code>
+<ul>
+<li>Podem ser divididos em procedimentos ou funções, que são blocos de código reutilizável. Permiter organizar o código de forma mais modular.</li>
+</ul>
+</li>
+<li><code>Efeitos Colaterais:</code>
+<ul>
+<li>Uma função pode alterar o estado do programa ou do sistema, tornando o código menos previsível.</li>
+</ul>
+</li>
+<li><code>Exemplos de Linguagens:</code></li>
+</ol>
+<ul>
+<li>C, C++, Java e Python:</li>
+</ul>
+<p><code>Resumo:</code> Se concentra na manipulação direta do estado. Amplamente utilizada em programação de baixo nível.</p>
+<h2 id="paradigma-funcional">Paradigma Funcional</h2>
+<p>É um dos principais e se baseia em funções matemáticas como a principal unidade de organização do código.</p>
+<ol>
+<li><code>Funções de Primeira Ordem:</code>
+<ul>
+<li>As funções podem ser atribuídas a variáveis, passadas como argumentos para outras funções e retornadas como valores de outras funções.</li>
+</ul>
+</li>
+<li><code>Imutabilidade:</code>
+<ul>
+<li>OS dados, uma vez criados, não podem ser alterados. Em vez disso, novos dados são criados a partir dos existentes por meio de funções.</li>
+</ul>
+</li>
+<li><code>Funções Puras:</code>
+<ul>
+<li>São aquelas que não tem efeitos colaterais. Elas sempre produzem o mesmo resultado quando chamadas com os mesmos argumentos, o que torna o código mais previsível e fácil de testar.
+4.<code>Recursão:</code></li>
+<li>As funções chamam a si mesmas como argumentos diferentes para realizar iterações.</li>
+</ul>
+</li>
+<li><code>Expressões Lambda:</code>
+<ul>
+<li>Permite definir funções pequenas e anônimas diretamente no código.</li>
+</ul>
+</li>
+<li><code>Funcções de Ordem Superior:</code>
+<ul>
+<li>São aquelas que podem receber outras funções como argumentos ou retornar funções como resultados.
+7.<code>Avaliação Tardia:</code></li>
+<li>A avaliação tardia (ou &quot;lazy evaluation&quot;) permite que as operações sejam adiadas até que sejam realmente necessárias, melhorando a eficiência.</li>
+</ul>
+</li>
+<li><code>Exemplos de Linguagens:</code>
+<ul>
+<li>Haskell, Lisp, JavaScript e Python.</li>
+</ul>
+</li>
+</ol>
+<p><code>Resumo:</code> Promove um estilo de codificação que enfatiza a composição de funções, a imutabilidade de dados, a ausência de efeitos colaterais e a avaliação tardia, resultando em código mais limpo, conciso e seguro.</p>
+<h2 id="paradigma-l%C3%B3gico">Paradigma Lógico</h2>
+<p>O Paradigma Lógico é uma abordagem de programação que utiliza lógica formal para representar conhecimentos e realizar inferências.</p>
+<ol>
+<li><code>Fatos(Conhecimento):</code>
+<ul>
+<li>São declarações simples que representam informações sobre o mundo, fatos são a base do conhecimento nesse paradigma. &quot;homem(joao)&quot; e &quot;pai(joao,pedro)&quot;</li>
+</ul>
+</li>
+<li><code>Regras de Inferência:</code>
+<ul>
+<li>Permitem derivas novos fatos com base em fatos existentes.</li>
+<li>Exemplos de regra em Prolog: avos(X, Y) :- pai(X, Z), pai(Z, Y).&quot; (X é avô de Y se X é pai de Z e Z é pai de Y).</li>
+<li>Regras fornecem uma maneira de raciocinar sobre os fatos e amplicar seu conhecimento.</li>
+</ul>
+</li>
+<li><code>Consultar:</code>
+<ul>
+<li>Consultas são usadas para fazer perguntas ao sistema com base no conhecimento e nas regras definidas. Tenta encontrar respostar às consultas usando seu mecanismo de inferência.</li>
+</ul>
+</li>
+</ol>
+<p><code>Resumo:</code> O Paradigma Lógico, exemplificado pelo Prolog, envolve representar conhecimento por meio de fatos e regras de inferência e usar consultar para objter informações com base nesse conhecimento.</p>
+<h2 id="complexidade-de-algoritmos">Complexidade de Algoritmos</h2>
+<p>A complexidade de algoritmo é uma medida quantitavida do desempenho de um algoritmo. Ela é usada para entender como o tempo de execução e o uso de memória de um algoritmo aumentam com o tamanho dos dados de entrada.</p>
+<ol>
+<li><code>Complexidade Temporal(Tempo de execução):</code>
+<ul>
+<li>Quanto tempo leva para o algortimo resolver um problema, dado um tamanho específico de entrada?</li>
+<li>Como o tempo de execução do algoritmo cresce à medida que o tamanho da entrada aumenta?</li>
+</ul>
+</li>
+<li><code>Complexidade Espacial(Uso de memória):</code>
+<ul>
+<li>Quanta memória é consumida pelo algoritmo para processar uma entrada de tamanho específico?</li>
+<li>Como o uso de memória pelo algoritmo cresce à medida que o tamanho da entrada aumenta?</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><code>Complexidade</code></th>
+<th><code>Desempenho</code></th>
+<th><code>Exemplo de Aplicação</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>O(1)</code></td>
+<td>Constante - mais rápido</td>
+<td>Determinar se uma sequência de números começa com 1</td>
+</tr>
+<tr>
+<td><code>O(log log n)</code></td>
+<td>super - rápido</td>
+<td></td>
+</tr>
+<tr>
+<td><code>O(log n)</code></td>
+<td>logarítmico - muito bom</td>
+<td>Busca binária. Não lê todas as entradas</td>
+</tr>
+<tr>
+<td><code>O(n)</code></td>
+<td>linear - é o mlehor que pode se esperar se algo não pode ser determinado sem examinar toda a entrada</td>
+<td>Busca o valor máximo de uma sequência</td>
+</tr>
+<tr>
+<td><code>O(n log n)</code></td>
+<td>limite de muitos problemas práticos</td>
+<td>Merge Sort</td>
+</tr>
+<tr>
+<td><code>O(n²)</code></td>
+<td>quadrático</td>
+<td>Multiplicação de Matrizes</td>
+</tr>
+<tr>
+<td><code>O(n^k)</code></td>
+<td>polinomial - ok para n pequeno</td>
+<td></td>
+</tr>
+<tr>
+<td><code>O(k^n)</code>,<code>O(!n)</code>,<code>O(n^n)</code></td>
+<td>exponencial - evita dog!</td>
+<td>Busca exaustiva de todos os subconjuntos de um conjunto, de todas as permutações de uma sequência, etc</td>
+</tr>
+</tbody>
+</table>
+<h3 id="o1"><code>O(1)</code></h3>
+<ul>
+<li>Complexidade constante.</li>
+<li>Uso do algoritmo independente de n.</li>
+<li>As instruções do algoritmo são executadas um número fixo de vezes</li>
+</ul>
+<h3 id="olog-n"><code>O(log n)</code></h3>
+<ul>
+<li>Complexidade logarítmica</li>
+<li>Típico em algoritmos que transformam um problema em outros menores.</li>
+<li>Quando n é mil, log 2 n ~= 10, quando n é 1 milhão, log2 ~=20</li>
+</ul>
+<h3 id="on"><code>O(n)</code></h3>
+<ul>
+<li>Complexidade Linear</li>
+<li>Realizado sobre cada elemento de entrada</li>
+<li>É a melhor situação possível para um algoritmo que tem de processar/produzir n elemento de entrada/saída.</li>
+</ul>
+<h3 id="on-log-n"><code>O(n log n)</code></h3>
+<ul>
+<li>Típico em algoritmos que quebram um problema em outros menores, resolvem cada um deles independentemente e ajuntando as soluções depois.</li>
+</ul>
+<h3 id="on%C2%B2"><code>O(n²)</code></h3>
+<ul>
+<li>Complexidade Quadrática</li>
+<li>Ocorrem quando os itens de dados são processados aos pares, muitas vezes em um anel dentro de outro.</li>
+<li>Úteis apenas para resolver pequenos relativamente problemas.</li>
+</ul>
+<h3 id="on%C2%B3"><code>O(n³)</code></h3>
+<ul>
+<li>Complexidade Cúbica</li>
+<li>Úteis apenas para resolver pequenos problemas.</li>
+</ul>
+<h3 id="o2n"><code>O(2^n)</code></h3>
+<ul>
+<li>Complexidade exponencial</li>
+<li>Ocorrem na solução de problemas quando se usa força bruta para resolvê-los</li>
+</ul>
+<h3 id="on"><code>O(!n)</code></h3>
+<ul>
+<li>Complexidade exponencial, apesar de ter um comportamento muito pior do que O(2^n)</li>
+</ul>
+<h3 id="c%C3%A1lculo-da-complexidade-de-algoritmo">Cálculo da Complexidade de Algoritmo</h3>
+<ol>
+<li>Levar em consideração apenas as estruturas de repetição do código.</li>
+<li>Verificar a complexidade das funções/métodos próprios da linguagem.</li>
+<li>Ignorar as complexidades constantes e utilizar o termo de maior grau.</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exemplo1</span><span class="hljs-params">(lista, x)</span>:</span>
+    tamanho = lista.size()   <span class="hljs-comment"># O(1)</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lista):   <span class="hljs-comment"># O(n)</span>
+        <span class="hljs-keyword">if</span> lista[i] == x:    <span class="hljs-comment"># O(1)</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
+</div></code></pre>
+<p><code>Complexidade:</code> O(n)</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exemplo2</span><span class="hljs-params">(lista, x)</span>:</span>
+    tamanho = lista.size()                     <span class="hljs-comment"># O(1)</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lista):                     <span class="hljs-comment"># O(n)</span>
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(lista):                 <span class="hljs-comment"># O(n)</span>
+            <span class="hljs-keyword">if</span> i!= j <span class="hljs-keyword">and</span> lista[i] == lista[j]: <span class="hljs-comment"># O(1)</span>
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
+</div></code></pre>
+<p><code>Complexidade:</code> O(n) * O(n) -&gt; O(n²)</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exemplo3</span><span class="hljs-params">(lista, x)</span>:</span>
+    bla = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lista):                            <span class="hljs-comment"># O(n)</span>
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> lista:                               <span class="hljs-comment"># O(n)</span>
+            <span class="hljs-keyword">if</span> lista[i] == lista[j]:
+                bla+=<span class="hljs-number">1</span>                        
+    ble = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lista):                            <span class="hljs-comment"># O(n)</span>
+        <span class="hljs-keyword">if</span> lista[i] == <span class="hljs-number">10</span>:
+            ble = <span class="hljs-number">2</span>* ble
+    bli = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lista):                            <span class="hljs-comment"># O(n)</span>
+        <span class="hljs-keyword">if</span> lista[i] == <span class="hljs-number">5</span>:
+            bli += <span class="hljs-number">5</span>
+</div></code></pre>
+<p><code>Complexidade:</code> O(n) * O(n) + O(n) + O(n) -&gt; O(n²) + 2*O(n) -&gt; O(n²)</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exemplo4</span><span class="hljs-params">(lista1, lista2)</span>:</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lista1):                   <span class="hljs-comment"># O(n)</span>
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(lista2):               <span class="hljs-comment"># O(m)</span>
+            <span class="hljs-keyword">if</span> lista1[i] == lista1[j]:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
+</div></code></pre>
+<p><code>Complexidade:</code> O(n) * O(m) -&gt; O(nm)</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exemplo5</span><span class="hljs-params">(lista)</span>:</span>
+    menor_idade = <span class="hljs-number">200</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lista):          <span class="hljs-comment"># O(n)</span>
+        <span class="hljs-keyword">if</span> lista[i] &lt; menor_idade:
+            menor_idade = lista[i]
+    cont = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lista):          <span class="hljs-comment"># O(n)</span>
+        <span class="hljs-keyword">if</span> lista[i] == menor+idade:
+            cont+=<span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> cont &gt; <span class="hljs-number">1</span>
+</div></code></pre>
+<p><code>Complexidade:</code> 2*O(n) -&gt; O(n)</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exemplo6</span><span class="hljs-params">(lista)</span>:</span>
+    lista.sort()                <span class="hljs-comment"># O(n log n)</span>
+    <span class="hljs-keyword">return</span> lista[<span class="hljs-number">0</span>] == lista[<span class="hljs-number">1</span>]
+</div></code></pre>
+<p><code>Complexidade:</code> O(n log n)</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exemplo7</span><span class="hljs-params">(sett, lista)</span>:</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(lista):   <span class="hljs-comment"># O(n)</span>
+        <span class="hljs-keyword">if</span> lista[i] <span class="hljs-keyword">in</span> sett: <span class="hljs-comment"># O(log n)</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span>
+</div></code></pre>
+<p><code>Complexidade:</code> O(n) * O(log n) -&gt; O(n log n)</p>
+<h2 id="algoritmo-de-busca">Algoritmo de Busca</h2>
+<h3 id="busca-sequencial"><code>Busca Sequencial</code></h3>
+<p>É o algoritmo mais simples de busca:</p>
+<ul>
+<li>Percorre a lista comparando a chave com os valores dos elementos em cada uma das posições.</li>
+<li>Se a chave for igual a algum dos elementos, retorne a posição correspondente na lista.</li>
+<li>Se a lista toda foi percorrida e a chave não for encontrada, retorne False(-1)</li>
+</ul>
+<h4 id="efici%C3%AAncia">Eficiência</h4>
+<ul>
+<li>Na melhor das hipóteses, a chave de busca estará na posição 0.</li>
+<li>Na pior das hipóteses, a chave é o último elemento ou não pertence à lista, acessamos todos os n elementos da lista.</li>
+<li>É possivel mostrar que, se as chaves possuírem a mesma probabilidade de serem requisitados, o número médio de acessos nas buscas cujas chaves encontram-śe na lista será igual a: (n+1)/2</li>
+</ul>
+<h3 id="busca-bin%C3%A1ria"><code>Busca Binária</code></h3>
+<p>É um algoritmo mais eficiente, entretando, requer que a lista esteja ordenada pelos valores da chave de busca.</p>
+<ul>
+<li>Verifique se a chave de busca é igual ao valor da posição do meio da lista.</li>
+<li>Caso o valor seja igual, devolve esta posição.</li>
+<li>Caso o valor desta posição seja maior que a chave, repete o preocesso, mas considere uma lista reduzida, com os elementos do começo da lista até a posição anterior a do meio.</li>
+<li>Caso o valor desta posição seja menor que a chave, então repita o processo, mas considere uma lista reduzida, com os elementos da posição seguinte a do meio até o fim da lista.</li>
+</ul>
+<h4 id="efici%C3%AAncia">Eficiência</h4>
+<ul>
+<li>Na melhor das hipóteses, a chave de busca estará na posição do meio da lista. Portanto, teremos um único acesso.</li>
+<li>Na pior das hipóteses, dividimos a lista até que ele fique com um único elemento(último acesso realizado à lista).</li>
+<li>Note que, a cada acesso, o tamanho da lista é diminuído, pelo menos, pela metade.</li>
+<li>Quantas vezes um número pode ser dividio por 2 antes dele se tornar igual a um?</li>
+<li>Esta é exatamente a definição de logaritmo na base 2.</li>
+<li>Ou seja, no pior caso o número de acesso é igual a log2 n.</li>
+<li>Se as chaves possuírem a mesma probabilidade de serem requisitadas, o número médio de acessos nas buscas cujas chaves encontram-se na lista será igual a: (log 2 n) - 1</li>
+</ul>
+<h2 id="algoritmo-de-ordena%C3%A7%C3%A3o">Algoritmo de Ordenação</h2>
+<h3 id="bubble-sorte"><code>Bubble Sorte</code></h3>
+<p>A Ordenação por bolha é um algoritmo de ordenação simples que funciona comparando pares de elementos adjacentes na lista e trocando-os se estiverem na ordem errada. Esse processo é repetido até que nenhuma troca seja necessária.</p>
+<ul>
+<li>Após a primeira iteração de trocas, o maior elemento estará na posição correta.</li>
+<li>Apos a segunda iteração de trocas, o segundo maior elemento estará na posição correta.</li>
+</ul>
+<p><code>Complexidade:</code> O(n²) no pior e no melhor caso</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Bubble-sort.gif" width="300">
+<h3 id="selection-sort"><code>Selection Sort</code></h3>
+<p>A ordenação por seleção divide a lista em duas partes: uma parte ordenada e outra parte não ordenada. Ela encontra o menor elemento da parte não ordenada e o move para a parte ordenada. Esse processo é repetido até que toda a lista esteja ordenada.
+Ou não cria uma nova lista e faz:</p>
+<ul>
+<li>Encontre o menor elemento a partir da posição 0. Troque esse elemento com o elemento da posição 0.</li>
+<li>Encontre o menor elemento a partir da posição 1. Troque esse elemento com o elemento da posição 1.</li>
+<li>E assim sucessivamente...</li>
+</ul>
+<p><code>Complexidade:</code> O(n²) no pior e no melhor caso</p>
+<img src="https://d2m498l008ebpa.cloudfront.net/2016/12/selection-sort-animation-2-1.gif">
+<h3 id="insertion-sort"><code>Insertion Sort</code></h3>
+<p>O insertion Sort funciona construindo a lista ordenada um elemento de cada vez, comparando cada elemento com os elementos já ordenados e inserindo-o na posição correta.</p>
+<ul>
+<li>A cada iteração i, os elementos das posições 0 até i-1 da lista estão ordenados.</li>
+<li>Então, precisamos inserir o elemento da posição i, entre as posições 0 e i, de forma a deixar a lista ordenada até a posição i;</li>
+<li>Na iteração seguinte, consideramos que a lista está ordenada até a posição i e repetimos o processo até que a lista esteja completamente ordenada.</li>
+</ul>
+<p><code>Complexidade:</code> O(n²) no pior caso, o(n) melhor caso</p>
+<img src="https://d2m498l008ebpa.cloudfront.net/2016/12/insertion-sort-animation-2-1.gif" width="300">
+<h1 id="lista-de-exerc%C3%ADcios">Lista de Exercícios</h1>
+<h2 id="1-o-algoritmo-a-usa-100n-opera%C3%A7%C3%B5es-enquanto-o-algoritmo-b-usa-3n%C2%B2-opera%C3%A7%C3%B5es-determine-n0-para-o-qual-a-%C3%A9-melhor-do-que-b-para-n-n0">1. O algoritmo A usa 100n operações enquanto o algoritmo B usa 3n² operações. Determine n0 para o qual A é melhor do que B para n &gt;= n0.</h2>
+<h3 id="resposta-100n-3n%C2%B2---100-3n---n-333-arredonda-pra-cima-n-34"><code>Resposta:</code> 100n = 3n² -&gt; 100 = 3n -&gt; n = 33.3 arredonda pra cima n = 34</h3>
+<h2 id="2-dois-algoritmos-a-e-b-possuem-complexidade-n5-e-2n-respectivamente-voc%C3%AA-utilizaria-o-algoritmo-a-ao-inv%C3%A9s-do-b-em-qual-caso-exemplifique">2. Dois algoritmos A e B possuem complexidade n^5 e 2n, respectivamente. Você utilizaria o algoritmo A ao invés do B. Em qual caso? Exemplifique.</h2>
+<h4 id="resposta-n5-2n---n4-2---n-118-n-2-usar-o-algoritmo-n5-ao-contrario-usar-2n"><code>Resposta:</code> n^5 = 2n -&gt; n^4 = 2 -&gt; n = 1,18, n &lt; 2 usar o algoritmo n^5, ao contrario usar 2n</h4>
+<h2 id="3um-algoritmo-leva-2ms-para-terminar-com-uma-entrada-de-tamanho-100-qual-o-tamanho-da-entrada-para-que-o-algoritmo-termine-em-10-30-e-60-segundos-quando-a-ordem-de-complexidade-for">3.Um algoritmo leva 2ms para terminar com uma entrada de tamanho 100. Qual o tamanho da entrada para que o algoritmo termine em 10, 30 e 60 segundos quando a ordem de complexidade for:</h2>
+<h3 id="quantidade-instru%C3%A7%C3%B5es-tempo-capacidade-processamento"><code>Quantidade Instruções = Tempo * Capacidade Processamento</code></h3>
+<h3 id="a-on"><code>a) O(n)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>100</td>
+<td>2ms</td>
+<td>100/2 = 50 interações/ms</td>
+</tr>
+<tr>
+<td>n</td>
+<td><code>a</code></td>
+<td>10^4ms</td>
+<td>50 int/ms</td>
+</tr>
+<tr>
+<td>n</td>
+<td><code>b</code></td>
+<td>3x10^4ms</td>
+<td>50 int/ms</td>
+</tr>
+<tr>
+<td>n</td>
+<td><code>c</code></td>
+<td>6x10^4ms</td>
+<td>50 int/ms</td>
+</tr>
+<tr>
+<td>### <code>Resposta</code>: a = 10^4x50 -&gt; a = 5x10^5</td>
+<td>b = 3x10^4x50 -&gt; b = 1.5x10^6</td>
+<td>c = 6x10^4x50 -&gt; c = 3x*10^6</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="b-on%C2%B2"><code>b) O(n²)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n²</td>
+<td>100</td>
+<td>2ms</td>
+<td>100²/2 = 5x10³ int/ms</td>
+</tr>
+<tr>
+<td>n²</td>
+<td><code>a</code></td>
+<td>10^4ms</td>
+<td>5x10³ int/ms</td>
+</tr>
+<tr>
+<td>n²</td>
+<td><code>b</code></td>
+<td>3x10^4ms</td>
+<td>5x10³ int/ms</td>
+</tr>
+<tr>
+<td>n²</td>
+<td><code>c</code></td>
+<td>6x10^4ms</td>
+<td>5x10³ int/ms</td>
+</tr>
+<tr>
+<td>###  <code>Resposta:</code> a² = 10^4x5x10^3 -&gt; a² = 5x10^7 -&gt; a = 7071</td>
+<td>b² = 3x10^4x5x10^3 -&gt; b² = 1.5x10^8 -&gt; b = 12247</td>
+<td>c² = 6x10^4x5x10^3 -&gt; c² = 3x10^8 -&gt; c = 17320</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="c-on%C2%B3"><code>c) O(n³)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n³</td>
+<td>100</td>
+<td>2ms</td>
+<td>100³/2 = 5x10^5 int/ms</td>
+</tr>
+<tr>
+<td>n³</td>
+<td><code>a</code></td>
+<td>10^4ms</td>
+<td>5x10^5 int/ms</td>
+</tr>
+<tr>
+<td>n³</td>
+<td><code>b</code></td>
+<td>3x10^4ms</td>
+<td>5x10^5 int/ms</td>
+</tr>
+<tr>
+<td>n³</td>
+<td><code>c</code></td>
+<td>6x10^4ms</td>
+<td>5x10^5 int/ms</td>
+</tr>
+<tr>
+<td>###  <code>Reposta</code>: a³ = 10^4x5x10^5 -&gt; a³ = 5x10^9 -&gt; a = 1709</td>
+<td>b³ = 3x10^4x5x10^5 -&gt; b³ = 1.5x10^10 -&gt; b = 2466</td>
+<td>c³ = 3x10^9 -&gt; c = 3107</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="d-olog-n"><code>d) O(log n)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>log n</td>
+<td>100</td>
+<td>2ms</td>
+<td>log2 100/2 = 3.5 int/ms</td>
+</tr>
+<tr>
+<td>log n</td>
+<td><code>a</code></td>
+<td>10^4ms</td>
+<td>3.5 int/ms</td>
+</tr>
+<tr>
+<td>log n</td>
+<td><code>b</code></td>
+<td>3x10^4ms</td>
+<td>3.5 int/ms</td>
+</tr>
+<tr>
+<td>log n</td>
+<td><code>c</code></td>
+<td>6x10^4ms</td>
+<td>3.5 int/ms</td>
+</tr>
+<tr>
+<td>###  <code>Resposta:</code> log2 a = 10^4x3.5 -&gt; a = 2^(3.5x10^4)</td>
+<td>log2 b = 3x10^4x3.5 -&gt; b = 2^(10.5x10^4)</td>
+<td>c = 2^(21x10^4)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="e-onlog-n"><code>e) O(n*log n)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n log n</td>
+<td>100</td>
+<td>2ms</td>
+<td>(100 log2 100)/2 = 332,5 int/ms</td>
+</tr>
+<tr>
+<td>n log n</td>
+<td><code>a</code></td>
+<td>10^4ms</td>
+<td>332,5 int/ms</td>
+</tr>
+<tr>
+<td>n log n</td>
+<td><code>b</code></td>
+<td>3x10^4ms</td>
+<td>332,5 int/ms</td>
+</tr>
+<tr>
+<td>n log n</td>
+<td><code>c</code></td>
+<td>6x10^4ms</td>
+<td>332,5 int/ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resposta-a-log2-a-104x3325"><code>Resposta:</code> a log2 a = 10^4x332.5</h3>
+<h2 id="4-um-algoritmo-leva-05ms-para-terminar-com-uma-entrada-de-tamanho-100-em-quanto-tempo-o-algoritmo-termina-quando-a-entrada-for-de-tamanho-10000-e-a-ordem-de-complexidade-for">4. Um algoritmo leva 0.5ms para terminar com uma entrada de tamanho 100. Em quanto tempo o algoritmo termina quando a entrada for de tamanho 10.000 e a ordem de complexidade for:</h2>
+<h3 id="tempo-quantidade-instru%C3%A7%C3%B5es-capacidade-processamento"><code>Tempo = Quantidade Instruções / Capacidade Processamento</code></h3>
+<h3 id="a-on"><code>a) O(n)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>100</td>
+<td>0,5ms</td>
+<td>100/0,5 = 200 int/ms</td>
+</tr>
+<tr>
+<td>n</td>
+<td>10^4</td>
+<td><code>t</code></td>
+<td>200 int/ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resposta-t-1042x102---t-5x10ms"><code>Resposta</code>: t = 10^4/2x10^2 -&gt; <code>t = 5x10ms</code></h3>
+<h3 id="b-on%C2%B2"><code>b) O(n²)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n²</td>
+<td>100</td>
+<td>2ms</td>
+<td>100²/0,5 = 2x10^4 int/ms</td>
+</tr>
+<tr>
+<td>n²</td>
+<td>10^4</td>
+<td><code>t</code></td>
+<td>2x10^4 int/ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resposta-t-104%C2%B22x104---t-510%C2%B3ms"><code>Resposta:</code> t = (10^4)²/2x10^4 -&gt; <code>t = 5.10³ms</code></h3>
+<h3 id="c-on%C2%B3"><code>c) O(n³)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n³</td>
+<td>100</td>
+<td>2ms</td>
+<td>100³/0,5 = 2x10^6 int/ms</td>
+</tr>
+<tr>
+<td>n³</td>
+<td>10^4</td>
+<td><code>t</code></td>
+<td>2x10^6 int/ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reposta-t-104%C2%B32x106---t-5x105ms"><code>Reposta</code>: t = (10^4)³/2x10^6 -&gt; <code>t = 5x10^5ms</code></h3>
+<h3 id="d-olog-n"><code>d) O(log n)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>log n</td>
+<td>100</td>
+<td>2ms</td>
+<td>log 100/0.5 = 14 int/ms</td>
+</tr>
+<tr>
+<td>log n</td>
+<td>10^4</td>
+<td><code>t</code></td>
+<td>14 int/ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resposta-t-log-10414---t-1ms"><code>Resposta:</code> t = log 10^4/14 -&gt; <code>t = 1ms</code></h3>
+<h3 id="e-onlog-n"><code>e) O(n*log n)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n log n</td>
+<td>100</td>
+<td>2ms</td>
+<td>100 log 100 / 0,5 = 1330 int/ms</td>
+</tr>
+<tr>
+<td>n log n</td>
+<td>10^4</td>
+<td><code>t</code></td>
+<td>1330 int/ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resposta-t-104-log-104-1330---t-10%C2%B2ms"><code>Resposta:</code> t = 10^4 log 10^4 / 1330 -&gt; <code>t = 10²ms</code></h3>
+<h2 id="5-uma-m%C3%A1quina-a-executa-um-algoritmo-de-complexidade-on%C2%B2-em-um-tempo-t-com-uma-entrada-de-tamanho-1000-qual-o-tamanho-m%C3%A1ximo-da-entrada-considerando-o-mesmo-intervalo-de-tempo-t-caso-a-complexidade-do-algoritmo-seja-alterada-para">5. Uma máquina A executa um algoritmo de complexidade O(n²) em um tempo t com uma entrada de tamanho 1000. Qual o tamanho máximo da entrada, considerando o mesmo intervalo de tempo t, caso a complexidade do algoritmo seja alterada para:</h2>
+<h3 id="on%C2%B2"><code>O(n²)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n²</td>
+<td>10³</td>
+<td><code>t</code></td>
+<td>(100³)²/t = 10^6/t</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quantidade-instru%C3%A7%C3%B5es-tempo-capacidade-processamento"><code>Quantidade Instruções = Tempo * Capacidade Processamento</code></h3>
+<h3 id="nesse-caso-como-o-intervalo-de-tempo-sempre-ser%C3%A1-o-mesmo-da-pra-tirar-o-tempo-da-equa%C3%A7%C3%A3o-e-usar-apenas">Nesse Caso como o intervalo de tempo sempre será o mesmo, da pra tirar o tempo da equação e usar apenas:</h3>
+<h3 id="quantidade-instru%C3%A7%C3%B5es-capacidade-processamento"><code>Quantidade Instruções = Capacidade Processamento</code></h3>
+<h3 id="a-on"><code>a) O(n)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>w</td>
+<td><code>t</code></td>
+<td>10^6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resposta-w-t106t---w-106"><code>Resposta</code>: w = t*(10^6)/t -&gt; <code>w = 10^6</code></h3>
+<h3 id="b-on%C2%B2"><code>b) O(n²)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2^n</td>
+<td>w</td>
+<td><code>t</code></td>
+<td>10^6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resposta-2w-106---log2-2w-log2-106---w-log2-106---w-19"><code>Resposta:</code> 2^w = 10^6 -&gt; log2 2^w = log2 10^6 -&gt; w = log2 10^6 -&gt; <code>w = 19</code></h3>
+<h3 id="c-on%C2%B3"><code>c) O(n³)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n³</td>
+<td>w</td>
+<td><code>t</code></td>
+<td>10^6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reposta-w%C2%B3-106---w-10%C2%B2"><code>Reposta</code>: w³ = 10^6 -&gt; <code>w = 10²</code></h3>
+<h3 id="d-olog-n"><code>d) O(log n)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>log n</td>
+<td>w</td>
+<td><code>t</code></td>
+<td>10^6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resposta-log-w-106---w-2106-ou-w-21000000"><code>Resposta:</code> log w = 10^6 -&gt; <code>w = 2^(10^6)</code> ou <code>w = 2^1000000</code></h3>
+<h3 id="e-onlog-n"><code>e) O(n*log n)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n log n</td>
+<td>w</td>
+<td><code>t</code></td>
+<td>10^6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resposta-w-log-w-106---w-62746"><code>Resposta:</code> w log w = 10^6 -&gt; <code>w = 62746</code></h3>
+<h2 id="6-ordene-as-fun%C3%A7%C3%B5es-a-seguir-pela-ordem-de-complexidade-n%C2%B2-n-log-n-2n-n-log-n-n%C2%B3-3n-n">6. Ordene as funções a seguir pela ordem de complexidade: n², n, log n, 2^n, n log n, n³, 3^n, n!.</h2>
+<ol>
+<li><code>log n</code></li>
+<li><code>n</code></li>
+<li><code>n log n</code></li>
+<li><code>n²</code></li>
+<li><code>n³</code></li>
+<li><code>2^n</code></li>
+<li><code>3^n</code></li>
+<li><code>n!</code></li>
+</ol>
+<h2 id="7-calcule-a-complexidade-de-tempo-do-algoritmo-abaixo">7. Calcule a Complexidade de tempo do algoritmo abaixo:</h2>
+<pre class="hljs"><code><div>Algoritmo Termo3  (n)
+Entrada: n, um número natural, isto é, n é inteiro e n &gt;= 1.
+Saída: t, o n-ésimo termo da sequência 3, 6, 9, ...
+{
+    i:= 1, t := 0;
+    enquanto (i &lt;= n) {
+        t:= t + 3;
+        i := i + 1;
+    }
+}
+</div></code></pre>
+<h3 id="resposta-complexidade-on"><code>Resposta:</code> Complexidade <code>O(n)</code></h3>
+<h2 id="8-o-algoritmo-abaixo-calcula-o-n-%C3%A9simo-termo-da-sequ%C3%AAncia-da-fibomacci-11-2-3-5-8-13-calcule-a-complexidade-de-tempo-deste-algoritmo-supondo-que-voc%C3%AA-possua-um-computador-capaz-de-realizar-106-somas-por-segundo-quanto-tempo-este-computador-levar%C3%A1-para-calcular-o-cent%C3%A9simo-termo-desta-sequ%C3%AAncia">8. O algoritmo abaixo calcula o n-ésimo termo da sequência da Fibomacci (1,1, 2, 3, 5, 8, 13, ... ). Calcule a complexidade de tempo deste algoritmo. Supondo que você possua um computador capaz de realizar <code>10^6 somas por segundo</code>, quanto tempo este computador levará para calcular o <code>centésimo termo</code> desta sequência.</h2>
+<h3 id="tempo-quantidade-instru%C3%A7%C3%B5es-capacidade-processamento"><code>Tempo = Quantidade Instruções / Capacidade Processamento</code></h3>
+<pre class="hljs"><code><div>Algoritmo Fibonacci (n)
+Entrada: n, um número natural, isto é, n é inteiro e n &gt;= 1.
+Saída: t, o n-ésimo termo da sequência de Fibonacci.
+{
+    aa := 1; a:= 1; f:= 1; i:= 3;
+    enquanto (i&lt;=n) {
+        aux := f; f := a + aa;
+        aa := a; a := aux;
+        i := i + 1;
+    }
+    retornar f;
+}
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Complexidade</th>
+<th>Tamanho</th>
+<th>Tempo</th>
+<th>Capacidade Processamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>100</td>
+<td><code>t</code></td>
+<td>10^6 somas/s</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resposta-complexidade-on-t-100106---t-10-4"><code>Resposta:</code> Complexidade <code>O(n)</code>, t = 100/10^6 -&gt; <code>t = 10^-4</code></h3>
+<h2 id="8-o-algoritmo-a-seguir-retorna-o-maior-elemento-em-de-um-vetor-calcule-a-complexidade-de-tempo-deste-algoritmo">8. O algoritmo a seguir retorna o maior elemento em de um vetor. Calcule a complexidade de tempo deste algoritmo.</h2>
+<pre class="hljs"><code><div>Algoritmo Maior (A,n)
+Entrada: A, um vetor de n elementos(n&gt;=1).
+Saída: o maior elemento do vetor.
+{
+    Max := A [1];
+    para i: = 2 até n faça
+        se (Max &lt; A [i])
+            Max := A [i];
+    retornar Max;
+}
+</div></code></pre>
+<h3 id="resposta-complexidade-on"><code>Resposta:</code> Complexidade <code>O(n)</code></h3>
+<h2 id="9-o-que-faz-o-seguinte-algoritmo-analise-seu-tempo-de-execu%C3%A7%C3%A3o-do-pior-caso-e-expresse-seu-valor-usando-a-nota%C3%A7%C3%A3o-%E2%80%9Cbig-o%E2%80%9D">9. O que faz o seguinte algoritmo? Analise seu tempo de execução do pior caso e expresse seu valor usando a notação “big-O”.</h2>
+<pre class="hljs"><code><div>Algoritmo A(a,n):
+    Entrada dois inteiros a,n
+    Saida: ?
+k &lt;-0
+b &lt;- 1
+enquanto (k&lt;n) faça
+    k &lt;- k + 1
+    b &lt;- b * a
+retorne b
+</div></code></pre>
+<h3 id="reposta-complexidade-on---calcula-an"><code>Reposta:</code> Complexidade <code>O(n) -&gt; Calcula a^n</code></h3>
+<h2 id="10-o-que-faz-o-seguinte-algoritmo-analise-seu-tempo-de-execu%C3%A7%C3%A3o-do-pior-caso-e-expresse-seu-valor-usando-a-nota%C3%A7%C3%A3o-%E2%80%9Cbig-oh%E2%80%9D">10. O que faz o seguinte algoritmo? Analise seu tempo de execução do pior caso e expresse seu valor usando a notação “big-Oh”.</h2>
+<pre class="hljs"><code><div>Algoritmo A(a,n):
+    Entrada dois inteiros a,n
+    Saida: ?
+k &lt;- n
+b &lt;- 1
+c &lt;- a
+enquanto (k &gt; 0) faça
+    se(k % 2 == 0) então
+        k &lt;- k /2
+        c &lt;- c * c
+    else
+        k &lt;- k - 1
+        b &lt;- b * c
+retorne b
+</div></code></pre>
+<h3 id="resposta-complexidade-olog-n-o-n%C3%BAmero-de-itera%C3%A7%C3%B5es-%C3%A9-determinado-pelo-n%C3%BAmero-de-vezes-que-k-pode-ser-dividido-por-2-at%C3%A9-que-ele-chegue-a-0-que-%C3%A9-da-ordem-de-log-n-exponencia%C3%A7%C3%A3o-r%C3%A1pida-ou-exponencia%C3%A7%C3%A3o-bin%C3%A1ria"><code>Resposta:</code> Complexidade <code>O(log n)</code>, o número de iterações é determinado pelo número de vezes que &quot;k&quot; pode ser dividido por 2 até que ele chegue a 0, que é da ordem de <code>log n</code>. <code>Exponenciação Rápida</code> ou <code>Exponenciação Binária</code></h3>
+<h2 id="12-calcule-a-complexidade-no-pior-caso-do-fragmento-de-c%C3%B3digo-abaixo">12. Calcule a complexidade, no pior caso, do fragmento de código abaixo:</h2>
+<pre class="hljs"><code><div>int i, j, k:
+for(i=0;i&lt;N;i++){
+    for(j=0;j&lt;N;j++){
+        R[i][j] = 0;
+        for(k=0;k&lt;N;k++){
+            R[i][j] += AR[i][k] + BR[k][j];
+        }
+    }
+}
+</div></code></pre>
+<h3 id="resposta-complexidade-on%C2%B3-realiza-um-loop-tr%C3%AAs-vezes-executando-n-itera%C3%A7%C3%B5es"><code>Resposta:</code> Complexidade <code>O(n³)</code>. Realiza um loop três vezes executando &quot;N&quot; iterações.</h3>
+<h2 id="13-calcule-a-complexidade-no-pior-caso-do-fragmento-de-c%C3%B3digo-abaixo">13. Calcule a complexidade, no pior caso, do fragmento de código abaixo:</h2>
+<pre class="hljs"><code><div>int i, j, k,s:
+for(i=0;i&lt;N-1;i++){
+    for(j=i+1;j&lt;N;j++){
+        for(k=1;k&lt;j;k++){
+            s = 1;
+        }
+    }
+}    
+</div></code></pre>
+<h3 id="resposta-complexidade-on%C2%B3"><code>Resposta:</code> Complexidade <code>O(n³)</code>.</h3>
+<h2 id="14-calcule-a-complexidade-no-pior-caso-do-fragmento-de-c%C3%B3digo-abaixo">14. Calcule a complexidade, no pior caso, do fragmento de código abaixo:</h2>
+<pre class="hljs"><code><div>int i,j,s;
+s = 0;
+for (i=1;i&lt;N-1;i++){
+    for(j=1;j&lt;2+N;j++){
+        s = s+1
+    }
+}
+</div></code></pre>
+<h2 id="15-dadas-n-vari%C3%A1veis-booleanas-escreva-um-algoritmo-que-gere-todas-as-combina%C3%A7%C3%B5esposs%C3%ADveis-por-exemplo-para-tr%C3%AAs-vari%C3%A1veis-dever%C3%A1-ser-gerado-000-%E2%80%93-001-%E2%80%93-010-%E2%80%93-011-%E2%80%93-100-%E2%80%93-101-%E2%80%93-110-%E2%80%93-111-em-seguida-an%C3%A1lise-a-complexidade-deste-algoritmo">15. Dadas n variáveis booleanas, escreva um algoritmo que gere todas as combinaçõespossíveis. Por exemplo, para três variáveis deverá ser gerado: 000 – 001 – 010 – 011 – 100 – 101 – 110 – 111. Em seguida, análise a complexidade deste algoritmo.</h2>
+<h3 id="resposta-complexidade-o2n"><code>Resposta</code>: Complexidade O(2^n)</h3>
+<h1 id="ordena%C3%A7%C3%A3o-e-busca---lista-de-exerc%C3%ADcios">Ordenação e Busca - Lista de Exercícios</h1>
+<h2 id="1-refa%C3%A7a-as-fun%C3%A7%C3%B5es-de-busca-sequencial-e-busca-bin%C3%A1ria-assumindo-que-a-lista-possui-chaves-que-podem-ocorrer-m%C3%BAltiplas-vezes-na-lista-neste-caso-voc%C3%AA-deve-retornar-uma-lista-com-todas-as-posi%C3%A7%C3%B5es-onde-a-chave-foi-encontrada-se-a-chave-n%C3%A3o-for-encontrada-na-lista-retornar-uma-lista-vazia">1. Refaça as funções de busca sequencial e busca binária assumindo que a lista possui chaves que podem ocorrer múltiplas vezes na lista. Neste caso, você deve retornar uma lista com todas as posições onde a chave foi encontrada. Se a chave não for encontrada na lista, retornar uma lista vazia.</h2>
+<h3 id="busca-sequencial">Busca Sequencial</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">busca_sequencial</span><span class="hljs-params">(lista, chave)</span>:</span>
+    posicoes = []
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(lista)):
+        <span class="hljs-keyword">if</span> lista[i] == chave:
+            posicoes.append(i)
+    <span class="hljs-keyword">return</span> posicoes
+</div></code></pre>
+<h3 id="busca-bin%C3%A1ria">Busca Binária</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pesquisa_binaria_multipla</span><span class="hljs-params">(lista, item)</span>:</span>
+    posicoes = []
+    esquerda, direita = <span class="hljs-number">0</span>, len(lista) - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> esquerda &lt;= direita:
+        meio = (esquerda + direita) // <span class="hljs-number">2</span>
+        <span class="hljs-keyword">if</span> lista[meio] == item:
+            posicoes.append(meio)
+            esquerda_temp = meio - <span class="hljs-number">1</span>
+            <span class="hljs-keyword">while</span> esquerda_temp &gt;= <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> lista[esquerda_temp] == item:
+                posicoes.append(esquerda_temp)
+                esquerda_temp -= <span class="hljs-number">1</span>
+            direita_temp = meio + <span class="hljs-number">1</span>
+            <span class="hljs-keyword">while</span> direita_temp &lt; len(lista) <span class="hljs-keyword">and</span> lista[direita_temp] == item:
+                posicoes.append(direita_temp)
+                direita_temp += <span class="hljs-number">1</span>
+            <span class="hljs-keyword">return</span> posicoes
+        <span class="hljs-keyword">elif</span> lista[meio] &gt; item:
+            direita = meio - <span class="hljs-number">1</span>
+        <span class="hljs-keyword">else</span>:
+            esquerda = meio + <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> []
+</div></code></pre>
+<h2 id="2-fa%C3%A7a-um-teste-de-mesa-com-cada-m%C3%A9todo-de-ordena%C3%A7%C3%A3o-estudado-at%C3%A9-o-momento-utilizando-as-seguintes-sequ%C3%AAncias-de-dados-de-entrada">2. Faça um teste de mesa com cada método de ordenação estudado até o momento, utilizando as seguintes sequências de dados de entrada:</h2>
+<h3 id="a-c1-57256"><code>a) C1 = {5,7,2,5,6}</code></h3>
+<h3 id="bubble-sort">Bubble Sort</h3>
+<ul>
+<li>Primeira Passagem:
+<ul>
+<li><code>(</code>5 7<code>)</code> 2 5 6: 5 &lt; 7 então não troca</li>
+<li>5 <code>(</code>7 2<code>)</code> 5 6 : 7 &gt; 2 então troca: <code>5,2,7,5,6</code></li>
+<li>5 2 <code>(</code>7 5<code>)</code> 6: 7 &gt; 5 então troca: <code>5,2,5,7,6</code></li>
+<li>5 2 5 <code>(</code>7 6<code>)</code>: 7 &gt; 6 então troca: <code>5,2,5,6,7</code></li>
+</ul>
+</li>
+<li>Segunda Passagem:
+<ul>
+<li><code>(</code>5 2<code>)</code> 5 6 7: 5 &gt; 2 então troca: <code>2,5,5,6,7</code></li>
+<li>2 <code>(</code>5 5<code>)</code> 6 7 : 5 = 5 então não troca: <code>2,5,5,6,7</code></li>
+<li>2 5 <code>(</code>5 6<code>)</code> 7: 5 &lt; 6 então não troca: <code>2,5,5,6,7</code></li>
+<li>2 5 5 <code>(</code>6 7<code>)</code>: 6 &lt; 7 então não troca: <code>2,5,5,6,7</code></li>
+</ul>
+</li>
+<li>Terceira Passagem:
+<ul>
+<li>Nehuma troca ocorre, sequência já ordenada</li>
+</ul>
+</li>
+<li>Quarta Passagem:
+<ul>
+<li>Nehuma troca ocorre, sequência já ordenada</li>
+</ul>
+</li>
+</ul>
+<h3 id="insertion-sort">Insertion Sort</h3>
+<ul>
+<li>Primeira Iteração:
+<ul>
+<li>7 &gt; 5 então está no lugar certo</li>
+</ul>
+</li>
+<li>Segunda Iteração:
+<ul>
+<li>2 &lt; 7, move o 7 para a direita: <code>5,2,7,5,6</code></li>
+<li>2 &lt; 5, move o 5 para a direita: <code>2,5,7,5,6</code></li>
+</ul>
+</li>
+<li>Terceira Iteração:
+<ul>
+<li>5 &lt; 7, move o 7 para a direita: <code>2,5,5,7,6</code></li>
+<li>5 = 5, não há movimento.</li>
+</ul>
+</li>
+<li>Quarta Iteração:
+<ul>
+<li>6 &lt; 7, move o 7 para a direita: <code>2,5,5,6,7</code></li>
+<li>6 &gt; 5, não há movimento, array ordenado.</li>
+</ul>
+</li>
+</ul>
+<h3 id="selection-sort">Selection Sort</h3>
+<ul>
+<li>Primeira Iteração:
+<ul>
+<li>Menor elemento é o 2, troca o 5 e o 2 de posição</li>
+<li>Troca: <code>2,7,5,5,6</code></li>
+</ul>
+</li>
+<li>Segunda Iteração:
+<ul>
+<li>Segundo menor elemento é o 5, troca o 7 e o 5 de lugar</li>
+<li>Troca: <code>2,5,7,5,6</code></li>
+</ul>
+</li>
+<li>Terceira Iteração:
+<ul>
+<li>Terceiro menor elemento é o 5, troca o 7 e o 5 de lugar</li>
+<li>Troca: <code>2,5,5,7,6</code></li>
+</ul>
+</li>
+<li>Quarta Iteração:
+<ul>
+<li>Quarto menor elemento é o 6, troca o 7 e o 6 de lugar</li>
+<li>Troca: <code>2,5,5,6,7</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="c2-3020100-%E2%88%9210"><code>C2 = {30,20,10,0, −10}</code></h3>
+<h3 id="bubble-sorte">Bubble Sorte</h3>
+<ul>
+<li>Primeira Iteração:
+<ul>
+<li><code>(</code>30, 20<code>)</code>,10,0,-10: 30 &gt; 20, então troca: <code>20,30,10,0,-10</code></li>
+<li>20,<code>(</code>30,10<code>)</code>,0,-10: 30 &gt; 10, então troca: <code>20,10,30,0,-10</code></li>
+<li>20,10,<code>(</code>30,0<code>)</code>,-10: 30 &gt; 0, então troca: <code>20,10,0,30,-10</code></li>
+<li>20,10,0,<code>(</code>30,-10<code>)</code>: 30 &gt; -10, então troca: <code>20,10,0,-10,30</code></li>
+</ul>
+</li>
+<li>Segunda Iteração:
+<ul>
+<li><code>(</code>20,10<code>)</code>,0,-10,30: 20 &gt; 10, então troca: <code>10,20,0,-10,30</code></li>
+<li>10,<code>(</code>20,0<code>)</code>,-10,-30: 20 &gt; 0, então troca: <code>10,0,20,-10,30</code></li>
+<li>10,0,<code>(</code>20,-10<code>)</code>,30: 20 &gt; -10, então troca: <code>10,0,-10,20,30</code></li>
+</ul>
+</li>
+<li>Terceira Iteração:
+<ul>
+<li><code>(</code>10,0<code>)</code>,-10,20,30: 10 &gt; 0, então troca: <code>0,10,-10,20,30</code></li>
+<li>0,<code>(</code>10,-10<code>)</code>,20,30: 10 &gt; -10, então troca: <code>0,-10,10,20,30</code></li>
+<li>0,-10,<code>(</code>10,20<code>)</code>,30: 10 &lt; 20, então não troca: <code>0,-10,-10,20,30</code></li>
+</ul>
+</li>
+<li>Quarta Iteração:
+<ul>
+<li><code>(</code>0,-10<code>)</code>,10,20,30: 0 &gt; -10, então troca: <code>-10,0,10,20,30</code></li>
+<li>-10,<code>(</code>0,10<code>)</code>,20,30: 0 &lt; 10, então não troca: <code>-10,0,10,20,30</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="insertion-sort">Insertion Sort</h3>
+<ul>
+<li>Primeira Iteração:
+<ul>
+<li>20 &lt; 30, move o 30 para a direita: <code>20,30,10,0,-10</code></li>
+</ul>
+</li>
+<li>Segunda Iteração:
+<ul>
+<li>10 &lt; 30, move o 30 para a direita: <code>20,10,30,0,-10</code></li>
+<li>10 &lt; 20. move o 20 para a direita: <code>10,20,30,0,-10</code></li>
+</ul>
+</li>
+<li>Terceira Iteração:
+<ul>
+<li>0 &lt; 30, move o 30 para a direita</li>
+<li>0 &lt; 20, move o 20 para a direita</li>
+<li>0 &lt; 10, move o 10 para a direita: <code>0,10,20,30,-10</code></li>
+</ul>
+</li>
+<li>Quarta Iteração:
+<ul>
+<li>-10 &lt; 30, move o 30 para a direita</li>
+<li>-10 &lt; 20, move o 20 para a direita</li>
+<li>-10 &lt; 10, move o 10 para a direita</li>
+<li>-10 &lt; 0, move o 0 para a direita: <code>-10,0,10,20,30</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="selection-sort">Selection Sort</h3>
+<ul>
+<li>Primeira Iteração:
+<ul>
+<li>Menor elemento é o -10, troca 30 e o -10 de lugar</li>
+<li>Troca: <code>-10,20,10,0,30</code></li>
+</ul>
+</li>
+<li>Segunda Iteração:
+<ul>
+<li>Segundo menor elemento é o 0, troca o 20 e o 0 de lugar</li>
+<li>Troca: <code>-10,0,10,20,30</code></li>
+</ul>
+</li>
+<li>Terceira Iteração:
+<ul>
+<li>Terceiro menor elemento é o 10, já esta no lugar e não troca</li>
+</ul>
+</li>
+<li>Quarta Iteração:
+<ul>
+<li>Quarto menor elemento é o 20, já esta no lugar e não troca</li>
+</ul>
+</li>
+</ul>
+<h2 id="c-c3-246810">c) <code>C3 = {2,4,6,8,10}</code></h2>
+<h3 id="bubble-sort">Bubble Sort</h3>
+<ul>
+<li>Primeira Iteração:
+<ul>
+<li><code>(</code>2,4<code>)</code>6,8,10: 2 &lt; 4, então não troca: <code>2,4,6,8,10</code></li>
+<li>2,<code>(</code>4,6<code>)</code>,8,10: 4 &lt; 6, então não troca: <code>2,4,6,8,10</code></li>
+<li>2,4,<code>(</code>6,8<code>)</code>,10: 6 &lt; 8, então não troca: <code>2,4,6,8,10</code></li>
+<li>2,4,6,<code>(</code>8,10<code>)</code>: 8 &lt; 10, então não troca: <code>2,4,6,8,10</code></li>
+</ul>
+</li>
+<li>Segunda Iteração:
+<ul>
+<li>Nehuma troca ocorre, sequência já ordenada</li>
+</ul>
+</li>
+</ul>
+<h3 id="insertion-sort">Insertion Sort</h3>
+<ul>
+<li>Primeira Iteração:
+<ul>
+<li>4 &gt; 2, não troca</li>
+</ul>
+</li>
+<li>Segunda Iteração:
+<ul>
+<li>6 &lt; 4, não troca</li>
+<li>6 &lt; 2, não troca</li>
+</ul>
+</li>
+<li>Terceira Iteração:
+<ul>
+<li>8 &lt; 6, não troca</li>
+<li>8 &lt; 4, não troca</li>
+<li>8 &lt; 2, não troca</li>
+</ul>
+</li>
+<li>Quarta Iteração:
+<ul>
+<li>10 &lt; 8, não troca</li>
+<li>10 &lt; 6, não troca</li>
+<li>10 &lt; 4, não troca</li>
+<li>10 &lt; 2, não troca</li>
+</ul>
+</li>
+</ul>
+<h3 id="selection-sort">Selection Sort</h3>
+<ul>
+<li>Primeira Iteração:
+<ul>
+<li>Menor elemento é o 2, já está no lugar certo e não troca</li>
+</ul>
+</li>
+<li>Segunda Iteração:
+<ul>
+<li>Segundo menor elemento é o 4, já está no lugar certo e não troca</li>
+</ul>
+</li>
+<li>Terceira Iteração:
+<ul>
+<li>Terceiro menor elemento é o 6, já está no lugar certo e não troca</li>
+</ul>
+</li>
+<li>Quarta Iteração:
+<ul>
+<li>Quarto menor elemento é o 8, já está no lugar certo e não troca</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-o-m%C3%A9todo-insert-sort-a-cada-passo-o-menor-elemento-%C3%A9-procurado-para-que-seja-inserido-na-sequ%C3%AAncia-j%C3%A1-ordenada-essa-procura-pode-ser-realizada-sequencialmente-ou-por-busca-bin%C3%A1ria-analise-o-desempenho-de-ambas-as-abordagens">3. O método insert sort, a cada passo, o menor elemento é procurado para que seja inserido na sequência já ordenada. Essa procura pode ser realizada sequencialmente ou por busca binária. Analise o desempenho de ambas as abordagens.</h2>
+<h3 id="busca-sequencial">Busca Sequencial:</h3>
+<ul>
+<li><code>Melhor Caso:</code> O melhor caso ocorre quando a lista já está ordenada. Nesse caso, a busca sequencial é muito eficiente, pois o algoritmo precisa apenas comparar cada elemento com o seu predecessor na sequência ordenada. A complexidade de tempo é <code>O(N)</code> no melhor caso.</li>
+<li><code>Pior Caso:</code> O pior caso ocorre quando a lista está em ordem inversa, e o algoritmo precisa percorrer toda a sequência ordenada para inserir cada elemento. A complexidade de tempo é <code>O(N²)</code> no pior caso.</li>
+</ul>
+<h3 id="busca-bin%C3%A1ria">Busca Binária:</h3>
+<ul>
+<li><code>Melhor Caso:</code> O melhor caso ocorre quando a lista está quase completamente ordenada. A busca binária ajuda a encontrar a posição correta de inserção de forma mais eficiente do que a busca sequencial. Nesse cenário, o algoritmo tem um desempenho muito próximo do melhor caso, e a complexidade de tempo <code>O(log n)</code>.</li>
+<li><code>Pior Caso:</code> A busca binária não melhora o pior caso em que a lista está em ordem inversa. O algoritmo ainda precisa percorrer toda a sequência ordenada para inserir cada elemento. A complexidade de tempo continua sendo O(n²)</li>
+</ul>
+<h2 id="4-pesquise-sobre-o-que-significa-dizer-que-um-algoritmo-de-ordena%C3%A7%C3%A3o-%C3%A9-est%C3%A1vel-dos-algoritmos-estudados-quais-deles-s%C3%A3o-est%C3%A1veis-utilize-o-c1-do-exerc%C3%ADcio-2-para-justificar-a-sua-resposta">4. Pesquise sobre o que significa dizer que um algoritmo de ordenação é estável. Dos algoritmos estudados quais deles são estáveis? Utilize o C1 do exercício 2 para justificar a sua resposta.</h2>
+<p>Um algoritmo de ordenação é considerado &quot;estável&quot; quando ele preserva a ordem relativa de elementos chaves iguais(ou seja, elementos que têm o mesmo valor de classificação) após a ordenação. Isso signifca que, se dois elementos A e B têm chaves iguais e a aparece antes de B na lista original, após a ordenação, A ainda aparecerá antes de B na lista ordenada.</p>
+<ul>
+<li><code>Bubble Sort</code>: É um algoritmo estável.
+Exemplo: <code>C1 = {5,7,2,5,6}</code>
+Nesse exemplo quando ele encontrar o <code>(</code>5,5<code>)</code> por ter o mesmo valor, ele não os trocará, mantendo assim a ordem relativa.</li>
+<li><code>Insertion Sort</code>: É um algoritmo estável, pois, durante a inserção de elementos na lista ordenada, ele mantém a ordem relativa dos elementos com chaves iguais.
+Exemplo: <code>C1 = {5,7,2,5,6}</code>
+Nesse exemplo, quando ele for empurrar os elementos para a direita para inserir, quando ele tentar pegar o segundo &quot;5&quot; ele vai inserir a direita do outro &quot;5&quot; e vai manter a ordem relativa.</li>
+<li><code>Selection Sort</code>: Não é estável.
+Exemplo: <code>C1 = {5,7,2,5,6}</code>
+Nesse exemplo, ele mantém a ordem, mas se o 2 estivesse no lugar do 6, ele não preservaria a ordem relativa e os &quot;5&quot; estariam em ordem relativa diferentes da lista original.</li>
+</ul>
+<h2 id="5-desconsidere-o-conhecimento-da-fun%C3%A7%C3%A3o-sqrt-na-linguagem-c-uma-forma-dese-obter-a-raiz-quadrada-de-um-n%C3%BAmero-qualquer-x-seria-atrav%C3%A9s-de-busca-bin%C3%A1ria-assuma-que-a-raiz-quadrada-de-x-est%C3%A1-entre-0-e-x-se-o-n%C3%BAmero-for-negativo-retorne-0-para-sabermos-se-um-palpite-y-%C3%A9-a-raiz-quadrada-de-x-basta-testar-se-yy-%C3%A9-pr%C3%B3ximo-o-suficiente-de-x-ou-em-outras-palavras-se-o-m%C3%B3dulo-da-diferen%C3%A7a-entre-eles-est%C3%A1-dentro-de-uma-toler%C3%A2ncia-definida-caso-contr%C3%A1rio-podemos-restringir-a-busca-entre-0-e-y-ou-entre-y-e-x-escreva-a-fun%C3%A7%C3%A3o-abaixo-que-implemente-este-algoritmo-considerando-10-6-como-toler%C3%A2ncia-para-o-c%C3%A1lculo-do-resultado">5. Desconsidere o conhecimento da função sqrt na linguagem C. Uma forma dese obter a raiz quadrada de um número qualquer x seria através de busca binária. Assuma que a raiz quadrada de x está entre 0 e x (Se o número for negativo, retorne 0). Para sabermos se um palpite y é a raiz quadrada de x, basta testar se y*y é próximo o suficiente de x ou, em outras palavras, se o módulo da diferença entre eles está dentro de uma tolerância definida. Caso contrário, podemos restringir a busca entre 0 e y ou entre y e x. Escreva a função abaixo que implemente este algoritmo, considerando 10-6 como tolerância para o cálculo do resultado.</h2>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">raiz</span><span class="hljs-params">(x)</span>:</span>
+    <span class="hljs-keyword">if</span> x &lt; <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span>
+
+    left, right = <span class="hljs-number">0.0</span>, x
+    epsilon = <span class="hljs-number">1e-6</span> 
+
+    <span class="hljs-keyword">while</span> right - left &gt; epsilon:
+        mid = (left + right) / <span class="hljs-number">2</span>
+        square = mid * mid
+
+        <span class="hljs-keyword">if</span> square &gt; x:
+            right = mid
+        <span class="hljs-keyword">else</span>:
+            left = mid
+
+    <span class="hljs-keyword">return</span> (left + right) / <span class="hljs-number">2</span>
+</div></code></pre>
+
+</body>
+</html>
