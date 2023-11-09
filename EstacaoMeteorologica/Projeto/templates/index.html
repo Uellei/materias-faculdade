@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentaa</title>
+</head>
+<body>
+    <button onclick="showTemperatureChart()">Temperatura</button>
+    <button onclick="showHumidityChart()">Umidade</button>
+    <button onclick="showLightChart()">Luminosidade</button>
+    <button onclick="addTemperatureDataPoint()">Adicionar Dados de Temperatura</button>
+    <button onclick="addHumidityDataPoint()">Adicionar Dados de Umidade</button>
+    <button onclick="addLightDataPoint()">Adicionar Dados de Luminosidade</button>
+    <div id="line-chart">
+        
+    </div>
+    <!-- ApexCharts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.44.0/apexcharts.min.js" integrity="sha512-9ktqS1nS/L6/PPv4S4FdD2+guYGmKF+5DzxRKYkS/fV5gR0tXoDaLqqQ6V93NlTj6ITsanjwVWZ3xe6YkObIQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- JS -->
+    <script>
+        var temperatureData = {
+    series: [{
+        name: "Temperatura",
+        data: []
+    }],
+    chart: {
+        height: 350,
+        type: 'line',
+        zoom: {
+            enabled: false
+        }
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        curve: 'smooth'
+    },
+    title: {
+        text: 'Gráfico de Temperatura',
+        align: 'left'
+    },
+    grid: {
+        row: {
+            colors: ['#f3f3f3', 'transparent'],
+            opacity: 0.5
+        }
+    },
+    xaxis: {
+        categories: []
+    }
+};
+
+var humidityData = {
+    series: [{
+        name: "Umidade",
+        data: []
+    }],
+    chart: {
+        height: 350,
+        type: 'line',
+        zoom: {
+            enabled: false
+        }
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        curve: 'smooth'
+    },
+    title: {
+        text: 'Gráfico de Umidade',
+        align: 'left'
+    },
+    grid: {
+        row: {
+            colors: ['#f3f3f3', 'transparent'],
+            opacity: 0.5
+        }
+    },
+    xaxis: {
+        categories: []
+    }
+};
+
+var lightData = {
+    series: [{
+        name: "Luminosidade",
+        data: []
+    }],
+    chart: {
+        height: 350,
+        type: 'line',
+        zoom: {
+            enabled: false
+        }
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        curve: 'smooth'
+    },
+    title: {
+        text: 'Gráfico de Luminosidade',
+        align: 'left'
+    },
+    grid: {
+        row: {
+            colors: ['#f3f3f3', 'transparent'],
+            opacity: 0.5
+        }
+    },
+    xaxis: {
+        categories: []
+    }
+};
+
+var options = temperatureData; // Comece com os dados de temperatura por padrão
+
+var chart = new ApexCharts(document.querySelector("#line-chart"), options);
+chart.render();
+
+function showTemperatureChart() {
+    chart.updateOptions(temperatureData);
+}
+
+function showHumidityChart() {
+    chart.updateOptions(humidityData);
+}
+
+function showLightChart() {
+    chart.updateOptions(lightData);
+}
+
+function addTemperatureDataPoint() {
+    console.log("Teste")
+    var timeNow = new Date();
+    var formattedTime = timeNow.getHours() + ":" + timeNow.getMinutes() + ":" + timeNow.getSeconds();
+    var newTemperatureValue = Math.floor(Math.random() * 10) + 20; // Simulando um novo valor de temperatura
+    temperatureData.series[0].data.push(newTemperatureValue);
+    temperatureData.xaxis.categories.push(formattedTime);
+    chart.updateOptions(temperatureData);
+}
+
+// UNICO QUE FUNCIONA
+// function addHumidityDataPoint() {
+//     var timeNow = new Date();
+//     var formattedTime = timeNow.getHours() + ":" + timeNow.getMinutes() + ":" + timeNow.getSeconds();
+//     var newHumidityValue = Math.floor(Math.random() * 20) + 40; // Simulando um novo valor de umidade
+//     humidityData.xaxis.categories.push(formattedTime)
+//     humidityData.series[0].data.push(newHumidityValue);
+
+//     // Faça uma cópia profunda de humidityData antes de atualizá-lo
+//     var updatedHumidityData = JSON.parse(JSON.stringify(humidityData));
+//     console.log(humidityData.xaxis.categories)
+//     chart.updateOptions(updatedHumidityData);
+// }
+var humidityDataIndex = 0;  // Inicialize o índice para buscar o primeiro dado
+
+function addHumidityDataPoint() {
+    // Fazer uma requisição para obter dados de umidade (substitua a URL pela sua)
+    fetch('http://127.0.0.1:5000/dados-enviador')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Dados recebidos:', data);
+
+        if (humidityDataIndex < data.length) {
+            // Verifique se ainda há dados a serem buscados
+            humidityData.xaxis.categories.push(data[humidityDataIndex].timestamp);
+            humidityData.series[0].data.push(data[humidityDataIndex].umidade);
+            var updatedHumidityData = JSON.parse(JSON.stringify(humidityData));
+            console.log(humidityData.xaxis.categories);
+            chart.updateOptions(updatedHumidityData);
+            console.log(updatedHumidityData);
+            humidityDataIndex++;  // Avance para o próximo dado na próxima chamada
+        } else {
+            console.log('Todos os dados foram buscados.');
+        }
+    })
+}
+
+
+function addLightDataPoint() {
+    var timeNow = new Date();
+    var formattedTime = timeNow.getHours() + ":" + timeNow.getMinutes() + ":" + timeNow.getSeconds();
+    var newLightValue = Math.floor(Math.random() * 160) + 200; // Simulando um novo valor de luminosidade
+    lightData.series[0].data.push(newLightValue);
+    lightData.xaxis.categories.push(formattedTime);
+    chart.updateOptions(lightData);
+}
+    </script>
+</body>
+</html>

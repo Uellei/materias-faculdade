@@ -1,0 +1,17 @@
+{
+    "Direcao": [],
+    "Luminosidade": {
+        "data": [],
+        "time": []
+    },
+    "Pressao": [],
+    "Rotacao": [],
+    "Temperatura": {
+        "data": [],
+        "time": []
+    },
+    "Umidade": {
+        "data": [],
+        "time": []
+    }
+}

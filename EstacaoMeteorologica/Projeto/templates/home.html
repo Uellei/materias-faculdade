@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="menuToggle"></div>
+    <div class="sidebar">
+        <ul>
+            <li class="logo" style="--bg:#333;">
+                <a href="#">
+                    <div class="icon"><ion-icon name="logo-apple-ar"></ion-icon></div>
+                    <div class="text">Website Logo</div>
+                </a>
+            </li>
+            <div class="MenuList">
+                <li style="--bg:#ffa117;" class="active">
+                    <a href="/">
+                        <div class="icon"><ion-icon name="home-outline"></ion-icon></div>
+                        <div class="text">Home</div>
+                    </a>
+                </li>
+                <li style="--bg:#0fc70f;">
+                    <a href="dashboard.html">
+                        <div class="icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
+                        <div class="text">DashBoard</div>
+                    </a>
+                </li>
+            </div>
+            <div class="bottom">
+                <li style="--bg:#333;">
+                    <a href="#">
+                        <div class="icon">
+                            <div class="imgBx">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0NChElpsG05JVxXMrX14ATT8PmTtT8-R6fA&usqp=CAU">
+                            </div>
+                        </div>
+                        <div class="text">The GygaBytes</div>
+                    </a>
+                </li>
+                <li style="--bg:#333;">
+                    <a href="#">
+                        <div class="icon"><ion-icon name="help-circle-outline"></ion-icon></div>
+                        <div class="text">About Us</div>
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        let menuToggle = document.querySelector(".menuToggle")
+        let sidebar = document.querySelector(".sidebar")
+        menuToggle.onclick = function() {
+            menuToggle.classList.toggle("active")
+            sidebar.classList.toggle("active")
+        }
+
+        let menuList = document.querySelectorAll(".MenuList li")
+        function activeLink() {
+            menuList.forEach((item) => 
+                item.classList.remove("active"));
+                this.classList.add('active');
+        }
+        menuList.forEach((item) => 
+            item.addEventListener("click", activeLink))
+    </script>
+</body>
+</html>
