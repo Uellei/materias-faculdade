@@ -3,72 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}"> -->
+    <link rel="stylesheet" href="../static/home.css">
     <title>Document</title>
 </head>
 <body>
-    <div class="menuToggle"></div>
-    <div class="sidebar">
-        <ul>
-            <li class="logo" style="--bg:#333;">
-                <a href="#">
-                    <div class="icon"><ion-icon name="logo-apple-ar"></ion-icon></div>
-                    <div class="text">Website Logo</div>
-                </a>
-            </li>
-            <div class="MenuList">
-                <li style="--bg:#ffa117;" class="active">
-                    <a href="/">
-                        <div class="icon"><ion-icon name="home-outline"></ion-icon></div>
-                        <div class="text">Home</div>
-                    </a>
-                </li>
-                <li style="--bg:#0fc70f;">
-                    <a href="dashboard.html">
-                        <div class="icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
-                        <div class="text">DashBoard</div>
-                    </a>
-                </li>
-            </div>
-            <div class="bottom">
-                <li style="--bg:#333;">
+    <div class="grid-container">
+        <div class="menuToggle"></div>
+        <div class="sidebar">
+            <ul>
+                <li class="logo" style="--bg:#333;">
                     <a href="#">
-                        <div class="icon">
-                            <div class="imgBx">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0NChElpsG05JVxXMrX14ATT8PmTtT8-R6fA&usqp=CAU">
+                        <div class="icon"><ion-icon name="logo-apple-ar"></ion-icon></div>
+                        <div class="text">Website Logo</div>
+                    </a>
+                </li>
+                <div class="MenuList">
+                    <li style="--bg:#ffa117;" class="active">
+                        <a href="home.html">
+                            <div class="icon"><ion-icon name="home-outline"></ion-icon></div>
+                            <div class="text">Home</div>
+                        </a>
+                    </li>
+                    <li style="--bg:#0fc70f;">
+                        <a href="dashboard.html">
+                            <div class="icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
+                            <div class="text">DashBoard</div>
+                        </a>
+                    </li>
+                </div>
+                <div class="bottom">
+                    <li style="--bg:#333;">
+                        <a href="#">
+                            <div class="icon">
+                                <div class="imgBx">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0NChElpsG05JVxXMrX14ATT8PmTtT8-R6fA&usqp=CAU">
+                                </div>
                             </div>
+                            <div class="text">The GygaBytes</div>
+                        </a>
+                    </li>
+                    <li style="--bg:#333;">
+                        <a href="AboutUs.html">
+                            <div class="icon"><ion-icon name="help-circle-outline"></ion-icon></div>
+                            <div class="text">About Us</div>
+                        </a>
+                    </li>
+                </div>
+            </ul>
+        </div>
+        <div class="container">
+            <div class="cont">
+                <div class="card-temp">
+                    <h2>
+                        Tempo agora no
+                        <br>
+                        <span>Galinheiro</span>
+                    </h2>
+                    
+                    <div class="_flex _justify-center _align-center">
+                        <span id="weather-icon">
+                            <img src="https://www.climatempo.com.br/dist/images/v2/svg/2n.svg" alt="Temperatura agora no galinheiro"> <!-- COLOCAR UMA IMAGEM PRA CADA SITUAÇÃO-->
+                        </span>
+                        <span id="weather-temp">35°</span>
+                    </div>
+                    <div id="temp-inf">
+                        <div class="_flex _align-center">
+                            <img src="https://www.climatempo.com.br/dist/images/v2/svg/ic-cloud.svg" style="margin-right: 10px;" alt=""> <!-- COLOCAR UMA IMAGEM PRA CADA SITUAÇÃO-->
+                            <span id="weather-condition">Poucas Nuvens</span>
                         </div>
-                        <div class="text">The GygaBytes</div>
-                    </a>
-                </li>
-                <li style="--bg:#333;">
-                    <a href="#">
-                        <div class="icon"><ion-icon name="help-circle-outline"></ion-icon></div>
-                        <div class="text">About Us</div>
-                    </a>
-                </li>
+                        <div class="_flex _align-center">
+                            <img src="	https://www.climatempo.com.br/dist/images/v2/svg/ic-sensation.svg" style="margin: 0 5px;" alt="">
+                            <span class="_flex">
+                                Sensação
+                                <span id="weather-sensation">34°C</span>
+                            </span>
+                        </div>
+                    </div>
+                    <ul class="list-inf">
+                        <li class="item">
+                            <div class="_flex">
+                                <span class="wind-identifier"></span>
+                                <span class="wind">Vento</span>
+                            </div>
+                            <span id="weather-wind">13 rpm</span>
+                        </li>
+                        <li class="item">
+                            <div class="_flex">
+                                <span class="umid-identifier"></span>
+                                <span class="umid">Umidade</span>
+                            </div>
+                            
+                            <span id="weather-umid">20%</span>
+                        </li>
+                    </ul>
+                    <div class="more-details">
+                        <a href="dashboard.html">More Details</a>
+                    </div>
+                </div>
+                <div class="charts-geral">
+                    <div id="chart"></div>  
+                    <ul class="buttons-charts">
+                        <li id="temp" onclick="changeChartOptions(tempOptions)" class="active"><i class="fa-solid fa-temperature-high"></i></ion-icon></li>
+                        <li id="umid" onclick="changeChartOptions(umidOptions)"><i class="fa-solid fa-droplet"></i></li>
+                        <li id="lx" onclick="changeChartOptions(lxOptions)"><i class="fa-regular fa-sun"></i></li>
+                        <li id="rot" onclick="changeChartOptions(rotOptions)"><i class="fa-solid fa-wind"></i></li>
+                        <li id="press" onclick="changeChartOptions(pressOptions)"><i class="fa-solid fa-compress"></i></li>
+                    </ul>
+                </div>
+                
             </div>
-        </ul>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <a href="/dashboard.html?option=temp-chart"></a>
+                    <div> 
+                        <p>HOJE</p>
+                    </div>
+                    <div class="card-inf">
+                        <ul>
+                            <li class="item">
+                                <div class="_flex">
+                                    <span class="temperature-identifier"></span>
+                                    <span class="temp-text">Temperatura</span>
+                                </div>
+                                <p class="_flex _align-center">
+                                    <img src="https://www.climatempo.com.br/dist/images/v2/svg/ic-arrow-min.svg" alt="" style="margin-right: 5px;" class="min-temp">24°
+                                    <img src="https://www.climatempo.com.br/dist/images/v2/svg/ic-arrow-max.svg" alt="" style="margin-right: 5px; margin-left: 10px;" class="max-temp"> 39°
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <a href="/dashboard.html?option=umid-chart"></a>
+                    <div>
+                        <p>HOJE</p>
+                    </div>
+                    <div class="card-inf">
+                        <ul>
+                            <li class="item">
+                                <div class="_flex">
+                                    <span class="umidade-identifier"></span>
+                                    <span class="umid-text">Umidade</span>
+                                </div>
+                                <p class="_flex _align-center">
+                                    <span style="margin-left: 5px;" class="umid-num">20%</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <a href="/dashboard.html?option=lx-chart"></a>
+                    <div>
+                        <p>HOJE</p>
+                    </div>
+                    <div class="card-inf">
+                        <ul>
+                            <li class="item">
+                                <div class="_flex">
+                                    <span class="luminosidade-identifier"></span>
+                                    <span class="lx-text">Luminosidade</span>
+                                </div>
+                                <p class="_flex _align-center">
+                                    <span style="margin-left: 5px;" class="lx-num">35lux</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <a href="/dashboard.html?option=press-chart"></a>
+                    <div>
+                        <p>HOJE</p>
+                    </div>
+                    <div class="card-inf">
+                        <ul>
+                            <li class="item">
+                                <div class="_flex">
+                                    <span class="pressao-identifier"></span>
+                                    <span class="press-text">Pressão</span>
+                                </div>
+                                <p class="_flex _align-center">
+                                    <span style="margin-left: 5px;" class="press-num">905hPa</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <a href="/dashboard.html?option=rot-chart"></a>
+                    <div>
+                        <p>HOJE</p>
+                    </div>
+                    <div class="card-inf">
+                        <ul>
+                            <li class="item">
+                                <div class="_flex">
+                                    <span class="rotacao-identifier"></span>
+                                    <span class="rot-text">Rotação</span>
+                                </div>
+                                <p class="_flex _align-center">
+                                    <span style="margin-left: 5px;" class="rot-num">13rpm</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
     </div>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-    <script>
-        let menuToggle = document.querySelector(".menuToggle")
-        let sidebar = document.querySelector(".sidebar")
-        menuToggle.onclick = function() {
-            menuToggle.classList.toggle("active")
-            sidebar.classList.toggle("active")
-        }
-
-        let menuList = document.querySelectorAll(".MenuList li")
-        function activeLink() {
-            menuList.forEach((item) => 
-                item.classList.remove("active"));
-                this.classList.add('active');
-        }
-        menuList.forEach((item) => 
-            item.addEventListener("click", activeLink))
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.44.0/apexcharts.min.js" integrity="sha512-9ktqS1nS/L6/PPv4S4FdD2+guYGmKF+5DzxRKYkS/fV5gR0tXoDaLqqQ6V93NlTj6ITsanjwVWZ3xe6YkObIQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="{{ url_for('static', filename='scripts.js') }}"></script> -->
+    <script src="/static/home.js"></script>
+    <script src="https://kit.fontawesome.com/b4d743868f.js" crossorigin="anonymous"></script>
 </body>
 </html>

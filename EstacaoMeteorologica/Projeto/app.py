@@ -30,6 +30,10 @@ paylaod = {
         }
 }
 
+@app.route('/')
+def index():
+    return render_template('home.html')  # Renderize o template
+
 @app.route('/home.html')
 def home():
     return render_template('home.html')  # Renderize o template
@@ -37,6 +41,10 @@ def home():
 @app.route('/dashboard.html')
 def dashboard():
     return render_template("dashboard.html")
+
+@app.route("/AboutUs.html")
+def about():
+    return render_template("AboutUs.html")
 
 # @app.route('/dados-enviador', methods=['GET', 'POST'])
 # def minha_paginaa():
@@ -57,12 +65,12 @@ def dados_temperatura():
         for key in data.keys():
             name = key
             value = data[key]
-            time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            time = datetime.now().strftime('%d/%m %H:%M')
             paylaod[name]["time"].append(time)
             paylaod[name]["data"].append(value)
-        return jsonify({"message": "Dados de temperatura recebidos com sucesso"})
     else:
         return jsonify({"error": "Método não suportado"})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    # app.run(host='0.0.0.0', port=5000)
+    app.run()

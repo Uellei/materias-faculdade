@@ -27,8 +27,8 @@ char auth[] = BLYNK_AUTH_TOKEN;
 //#define WIFI_PASS           "Farm#Uni2018"
 //#define WIFI_SSID         "Darth Vader"    
 //#define WIFI_PASS         "bololeta11"
-#define WIFI_SSID         "Thepeter"    
-#define WIFI_PASS         "brenogabriel"
+#define WIFI_SSID         "POCO"    
+#define WIFI_PASS         "56LH1n325N"
 
 //Define do pino do ESP para o sensor DHT11 (Umidade)
 #define DHT_DATA_PIN 32
@@ -94,7 +94,7 @@ void send_sensor_data_to_server(const String& key, T value) {
   String json_str;
   serializeJson(jsonDocument, json_str);
 
-  String url = "http://192.168.233.141:5000/dados";
+  String url = "https://edf9-2804-214-8594-a7c9-b88c-3938-f564-89ea.ngrok-free.app/dados";
   String response;
 
   http.begin(url);

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}"> -->
+    <link rel="stylesheet" href="../static/home.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="menuToggle"></div>
+        <div class="sidebar">
+            <ul>
+                <li class="logo" style="--bg:#333;">
+                    <a href="#">
+                        <div class="icon"><ion-icon name="logo-apple-ar"></ion-icon></div>
+                        <div class="text">Website Logo</div>
+                    </a>
+                </li>
+                <div class="MenuList">
+                    <li style="--bg:#ffa117;">
+                        <a href="/">
+                            <div class="icon"><ion-icon name="home-outline"></ion-icon></div>
+                            <div class="text">Home</div>
+                        </a>
+                    </li>
+                    <li style="--bg:#0fc70f;">
+                        <a href="dashboard.html">
+                            <div class="icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
+                            <div class="text">DashBoard</div>
+                        </a>
+                    </li>
+                </div>
+                <div class="bottom">
+                    <li style="--bg:#333;">
+                        <a href="#">
+                            <div class="icon">
+                                <div class="imgBx">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0NChElpsG05JVxXMrX14ATT8PmTtT8-R6fA&usqp=CAU">
+                                </div>
+                            </div>
+                            <div class="text">The GygaBytes</div>
+                        </a>
+                    </li>
+                    <li style="--bg:#333;">
+                        <a href="#">
+                            <div class="icon"><ion-icon name="help-circle-outline"></ion-icon></div>
+                            <div class="text">About Us</div>
+                        </a>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    <section id="about">
+        <div class="about-1">
+            <h1>ABOUT PROJECT</h1>
+            <p></p>
+        </div>
+        <div class="about-2">
+            <div class="content-box-lg">
+                <section class="container">
+                    <div class="linha">
+                        <div class="col-md-4">
+                            <div class="about-item text-center">
+                                <h3>Instrumentação</h3>
+                                <h3>Eletrônica</h3>
+                                <hr>
+                                <p>Neste projeto, aplicamos os princípios da instrumentação eletrônica para desenvolver uma estação meteorológica de baixo custo. Utilizamos sensores como BMP280, DHT11, BH1750, AS5600, e um sensor de barreira para medir pressão e temperatura, umidade, luminosidade, ângulo e velocidade/RPM, respectivamente. A aplicação desses sensores permite a captura de dados precisos sobre as condições climáticas, contribuindo para o monitoramento eficiente e econômico.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="about-item text-center">
+                                <h3>Sistemas de Controle</h3>
+                                <h3>a</h3>
+                                <hr>
+                                <p>Nossa estação meteorológica utiliza dados do sensor de temperatura (DHT11) para controlar automaticamente uma cortina no viveiro agrícola em resposta a temperaturas elevadas, otimizando o ambiente de cultivo. Estratégias eficientes, como intervalos de leitura programados, são implementadas para equilibrar precisão e economia de energia. Essa abordagem prática dos Sistemas de Controle na agricultura destaca a utilidade dos dados na gestão térmica do viveiro, promovendo um cultivo mais eficiente e adaptável.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="about-item text-center">
+                                <!-- <i class="fa fa-book"></i> -->
+                                <h3>Servidor</h3>
+                                <h3>a</h3>
+                                <hr>
+                                <p>A estratégia de envio de dados para um servidor remoto via requisições HTTP, implementado em Flask, destaca a importância de um servidor na arquitetura do projeto. Essa abordagem permite o armazenamento persistente dos dados, centralizando as informações de forma segura. A centralização dos dados em um servidor remoto não apenas facilita o monitoramento, análise e visualização, mas também protege contra perda ou danos nos dispositivos locais. A inclusão do servidor como parte integral do sistema contribui para a robustez e confiabilidade da estação meteorológica de baixo custo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.44.0/apexcharts.min.js" integrity="sha512-9ktqS1nS/L6/PPv4S4FdD2+guYGmKF+5DzxRKYkS/fV5gR0tXoDaLqqQ6V93NlTj6ITsanjwVWZ3xe6YkObIQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="{{ url_for('static', filename='scripts.js') }}"></script> -->
+</body>
+</html>
