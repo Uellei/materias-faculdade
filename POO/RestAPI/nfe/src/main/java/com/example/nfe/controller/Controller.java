@@ -30,7 +30,7 @@ public class Controller {
     public ResponseEntity<String> receberDados(@RequestBody NotaFiscal[] dados) {
         try {
             String mensagem = dadosService.adicionarNotaFiscal(dados);
-            return ResponseEntity.ok(mensagem);
+            return ResponseEntity.status(HttpStatus.CREATED).body(mensagem);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (ChaveDuplicadaException e) {
