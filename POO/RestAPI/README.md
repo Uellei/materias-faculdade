@@ -35,30 +35,30 @@ A arquitetura reflete uma abordagem clara e coesa da POO, onde as responsabilida
 ### Avaliação das Operações CRUD:
 ### 1. Create(POST):
 - O método `receberDados` no controlador (Controller) lida com a criação de novos dados (Notas Fiscais) através do endpoint `/criar`. Ele chama o método correspondente no serviço (DadosService) para adicionar as Notas Fiscais à lista. O tratamento de exceções também está presente para lidar com situações como dados duplicados ou erros internos no servidor.
-![Alt text](/images/image-6.png)
+![Alt text](images\image-1.png)
 #### Descrição: Responsável por receber dados de Notas Fiscais.
 #### Método HTTP: POST
 #### Estrutura do JSON: Deve ser um array contendo objetos no formato `{"name": "", "value": ""}` contendo o campo de nome e valor encontrados na nota fiscal, conforme explícito no exemplo.
 #### Observações: O campo `Chave de Acesso` é obrigatório, caso contrário erro vai ser retornado, confome segue o exemplo:
-![Alt text](/images/image.png)
+![Alt text](images/image.png)
 #### Observações: Se ao enviar um novo objeto com uma Chave de Acesso já existente, uma mensagem específica será retornada:
-![Alt text](/images/image-5.png)
+![Alt text](images/image-5.png)
 #### Observações: Tentar adicionar uma Nota Fiscal com o value da Chave de Acesso como null ou uma string vazia:
-![Alt text](/images/image-7.png)
+![Alt text](images/image-7.png)
 
 ### 2. Read(GET):
 - Existem dois endpoints para a operação de leitura:
     - `/obter:` Retorna todas as Notas Fiscais presentes na lista.
     - `/obter/{chaveAcesso}:` Retorna os dados associados a uma Nota Fiscal específica, identificada pela chave de acesso.
 
-![Alt text](/images/image-2.png)
+![Alt text](images/image-2.png)
 #### Descrição: Responsável por retornar os dados das Notas Fiscais.
 #### Método HTTP: GET
 #### Endpoint `/obter`: Retorna um array contendo todas as notas fiscais que foram adicionadas à lista. 
 #### Endpoint `/obter/{chaveAcesso}`: Retorna apenas a nota fiscal com a Chave de Acesso passada como query string.
-![Alt text](/images/image-3.png)
+![Alt text](images/image-3.png)
 #### Observações: Se for passado uma Chave de Acesso como query string que não exista no armazenamento vai retornar uma mensagem de erro.
-![Alt text](/images/image-4.png)
+![Alt text](images/image-4.png)
 
 ### 3. Update(PUT):
 - O método `atualizarDados` no controlador (Controller) lida com a atualização de dados através do endpoint `/atualizar/{chaveAcesso}`. Ele chama o método correspondente no serviço (DadosService) para atualizar os dados existentes ou adicionar novos dados na Nota Fiscal identificada pela chave de acesso fornecida. O tratamento de exceções também está presente para lidar com situações como a chave de acesso não encontrada.
@@ -66,11 +66,11 @@ A arquitetura reflete uma abordagem clara e coesa da POO, onde as responsabilida
 #### Método HTTP: PUT
 #### Endpoint `atualizar/{ChaveAcesso}`: Permite atualizar um novo elemento passando o name e o novo value que deseja ser atualizado, ou criar um novo dado, passando name que ainda não existe e o value que deseja, exemplo:
 #### Atualizar Dados
-![Alt text](/images/image-8.png)
+![Alt text](images/image-8.png)
 #### Criar Dados
-![Alt text](/images/image-9.png)
+![Alt text](images/image-9.png)
 #### Observações: Tentar atualizar uma Nota Fiscal com uma Chave de Acesso que não existe
-![Alt text](/images/image-10.png)
+![Alt text](images/image-10.png)
 
 #### 4. Delete(DELETE):
 - Existem dois endpoints para a operação de exclusão:
@@ -79,12 +79,12 @@ A arquitetura reflete uma abordagem clara e coesa da POO, onde as responsabilida
 #### Descrição: Responsável por apagar dados da Notas Fiscal.
 #### Método HTTP: DELETE
 #### Endpoint `/apagar/{ChaveAcesso}`: Apaga elementos específicos da nota fiscal passada como query string, passando um array com os names de cada objeto, exemplo:
-![Alt text](/images/image-11.png)
+![Alt text](images/image-11.png)
 #### Endpoint `/apagar-nota/{ChaveAesso}`: Apaga a Nota Fiscal passada como query string, exemplo:
-![Alt text](/images/image-12.png)
+![Alt text](images/image-12.png)
 #### Observações: Tentar apagar a Chave de Acesso de uma Nota Fiscal:
-![Alt text](/images/image-13.png)
+![Alt text](images/image-13.png)
 #### Observações: Nota Fiscal vazia
-![Alt text](/images/image-14.png)
+![Alt text](images/image-14.png)
 #### Observações: Tentar apagar uma Nota Fiscal com uma Chave de Acesso inexistente:
-![Alt text](/images/image-15.png)
+![Alt text](images/image-15.png)
