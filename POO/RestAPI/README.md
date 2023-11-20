@@ -35,7 +35,7 @@ A arquitetura reflete uma abordagem clara e coesa da POO, onde as responsabilida
 ### Avaliação das Operações CRUD:
 ### 1. Create(POST):
 - O método `receberDados` no controlador (Controller) lida com a criação de novos dados (Notas Fiscais) através do endpoint `/criar`. Ele chama o método correspondente no serviço (DadosService) para adicionar as Notas Fiscais à lista. O tratamento de exceções também está presente para lidar com situações como dados duplicados ou erros internos no servidor.
-![Alt text](images\image-1.png)
+![Alt text](images/image-1.png)
 #### Descrição: Responsável por receber dados de Notas Fiscais.
 #### Método HTTP: POST
 #### Estrutura do JSON: Deve ser um array contendo objetos no formato `{"name": "", "value": ""}` contendo o campo de nome e valor encontrados na nota fiscal, conforme explícito no exemplo.
