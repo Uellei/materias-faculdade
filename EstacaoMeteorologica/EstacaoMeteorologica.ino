@@ -189,25 +189,6 @@ void add_to_samples(T value, T array[], int& current_index, int max_size) {
   current_index = (current_index + 1) % max_size;
 }
 
-// template <typename T>
-// T calcula_media(T array[], int size) {
-//   T peso_total = 0;
-//   T media_ponderada = 0;
-
-//   for(int i = 0;i < size;i++) {
-//     T peso = static_cast<T>(i) + static_cast<T>(0.5);
-//     Serial.print("Peso: ");
-//     Serial.println(peso);
-//     media_ponderada += array[i] * peso;
-//     Serial.print("Media Ponderada: ");
-//     Serial.println(media_ponderada);
-//     peso_total += peso;
-//     Serial.println(peso_total);
-//   }
-//   media_ponderada /= peso_total;
-//   return media_ponderada;
-// }
-
 template <typename T>
 T calcula_media_exponencial(T array[], int size, float alpha) {
   T media_exponencial = array[0];
