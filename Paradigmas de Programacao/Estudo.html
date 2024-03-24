@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [['$','$'], ['\\(','\\)']]}});</script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS": {"availableFonts":["TeX"],"scale": 150}});</script>
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+</style>
+
+</head>
+<body>
+<h2 id="1-baseado-na-lista-de-valores-abaixo-fa%C3%A7a-uma-itera%C3%A7%C3%A3o-do-algoritmo-de-ordena%C3%A7%C3%A3o-quicksort-utilizando-como-piv%C3%B4-o-%C3%BAltimo-d%C3%ADgito-do-seu-ra-entende-se-como-uma-itera%C3%A7%C3%A3o-o-momento-em-que-ocorre-a-divis%C3%A3o-do-vetor-em-duas-partes-dada-a-posi%C3%A7%C3%A3o-correta-do-piv%C3%B4">1. Baseado na lista de valores abaixo, faça UMA iteração do algoritmo de ordenação QuickSort, utilizando como pivô o último dígito do seu RA. Entende-se como uma iteração o momento em que ocorre a divisão do vetor em duas partes, dada a posição correta do pivô.</h2>
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Quicksort-example.gif">
+<h2 id="2-considere-o-algoritmo-que-implementa-o-seguinte-processo-uma-cole%C3%A7%C3%A3o-desordenada-de-elementos-%C3%A9-dividida-em-duas-metades-e-cada-metade-%C3%A9-utilizada-como-argumento-para-a-reaplica%C3%A7%C3%A3o-recursiva-do-procedimento-os-resultados-das-duas-reaplica%C3%A7%C3%B5es-s%C3%A3o-ent%C3%A3o-combinados-pela-intercala%C3%A7%C3%A3o-dos-elementos-de-ambas-resultando-em-uma-cole%C3%A7%C3%A3o-ordenada-qual-%C3%A9-a-complexidade-desse-algoritmo">2. Considere o algoritmo que implementa o seguinte processo: uma coleção desordenada de elementos é dividida em duas metades e cada metade é utilizada como argumento para a reaplicação recursiva do procedimento. Os resultados das duas reaplicações são, então, combinados pela intercalação dos elementos de ambas, resultando em uma coleção ordenada. Qual é a complexidade desse algoritmo?</h2>
+<h4 id="merge-sort---on-log-n">Merge Sort - <code>O(n log n)</code></h4>
+<h2 id="3-as-t%C3%A9cnicas-de-projeto-de-algoritmos-s%C3%A3o-essenciais-para-que-os-desenvolvedores-possam-implementar-software-de-qualidade-essas-t%C3%A9cnicas-descrevem-os-princ%C3%ADpios-que-devem-ser-adotados-para-se-projetar-solu%C3%A7%C3%B5es-algoritmicas-para-um-dado-problema-entre-as-principais-t%C3%A9cnicas-destacam-se-os-projetos-de-algoritmos-por-tentativa-e-erro-divis%C3%A3o-e-conquista-programa%C3%A7%C3%A3o-din%C3%A2mica-e-algoritmos-gulosos-nesse-contexto-fa%C3%A7a-o-que-se-pede-nos-itens-a-seguir">3. As técnicas de projeto de algoritmos são essenciais para que os desenvolvedores possam implementar software de qualidade. Essas técnicas descrevem os princípios que devem ser adotados para se projetar soluções algoritmicas para um dado problema. Entre as principais técnicas, destacam-se os projetos de algoritmos por tentativa e erro, divisão e conquista, programação dinâmica e algoritmos gulosos. Nesse contexto, faça o que se pede nos itens a seguir.</h2>
+<h3 id="a-descreva-o-que-caracteriza-o-projeto-de-algoritmos-por-divis%C3%A3o-e-conquista">a) Descreva o que caracteriza o projeto de algoritmos por divisão e conquista.</h3>
+<h5 id="resposta-o-projeto-de-algoritmos-por-divis%C3%A3o-e-conquista-%C3%A9-uma-t%C3%A9cnica-que-aborda-a-resolu%C3%A7%C3%A3o-de-problemas-complexos-dividindo-os-em-subproblemas-menores-e-resolvendo-cada-subproblema-de-forma-independente"><code>Resposta:</code> O projeto de algoritmos por divisão e conquista é uma técnica que aborda a resolução de problemas complexos dividindo-os em subproblemas menores e resolvendo cada subproblema de forma independente</h5>
+<h3 id="b-apresente-uma-situa%C3%A7%C3%A3o-de-uso-da-t%C3%A9cnica-de-projeto-de-algoritmos-por-divis%C3%A3o-e-conquista">b) Apresente uma situação de uso da técnica de projeto de algoritmos por divisão e conquista.</h3>
+<h5 id="resposta-um-exemplo-pr%C3%A1tico-de-uso-da-t%C3%A9cnica-de-divis%C3%A3o-e-conquista-%C3%A9-o-algoritmo-merge-sort-para-ordena%C3%A7%C3%A3o-de-listas-na-etapa-de-divis%C3%A3o-a-lista-%C3%A9-dividida-em-duas-partes-iguais-cada-parte-%C3%A9-ent%C3%A3o-ordenada-recursivamente-representando-a-fase-de-conquista-por-fim-as-duas-partes-ordenadas-s%C3%A3o-mescladas-combinadas-para-produzir-a-lista-globalmente-ordenada"><code>Resposta:</code> Um exemplo prático de uso da técnica de divisão e conquista é o algoritmo Merge Sort para ordenação de listas. Na etapa de &quot;divisão&quot;, a lista é dividida em duas partes iguais. Cada parte é, então, ordenada recursivamente, representando a fase de &quot;conquista&quot;. Por fim, as duas partes ordenadas são mescladas (combinadas) para produzir a lista globalmente ordenada.</h5>
+<h2 id="4">4.</h2>
+<h3 id="i-o-m%C3%A9todo-guloso-encontra-o-menor-n%C3%BAmero-de-moedas-para-o-valor-de-entrada-considerando-as-moedas-do-pa%C3%ADs">I. O método guloso encontra o menor número de moedas para o valor de entrada, considerando as moedas do país.</h3>
+<h4 id="verdadeiro-o-algoritmo-guloso-seleciona-a-melhor-escolha-local-em-cada-etapa-visando-otimizar-a-solu%C3%A7%C3%A3o-global-no-contexto-de-encontrar-o-menor-n%C3%BAmero-de-moedas-para-um-valor-espec%C3%ADfico-um-algoritmo-guloso-pode-selecionar-a-maior-moeda-poss%C3%ADvel-a-cada-passo-o-que-muitas-vezes-leva-a-uma-solu%C3%A7%C3%A3o-%C3%B3tima-em-termos-de-quantidade-m%C3%ADnima-de-moedas"><code>Verdadeiro:</code> O algoritmo guloso seleciona a melhor escolha local em cada etapa, visando otimizar a solução global. No contexto de encontrar o menor número de moedas para um valor específico, um algoritmo guloso pode selecionar a maior moeda possível a cada passo, o que muitas vezes leva a uma solução ótima em termos de quantidade mínima de moedas.</h4>
+<h3 id="ii-m%C3%A9todos-gulosos-sempre-encontram-a-solu%C3%A7%C3%A3o-%C3%B3tima-global">II. Métodos gulosos sempre encontram a solução ótima global.</h3>
+<h4 id="falso-embora-m%C3%A9todos-gulosos-sejam-eficazes-em-muitos-casos-n%C3%A3o-h%C3%A1-garantia-de-que-sempre-levem-%C3%A0-solu%C3%A7%C3%A3o-%C3%B3tima-global-a-escolha-da-melhor-op%C3%A7%C3%A3o-local-em-cada-etapa-pode-n%C3%A3o-ser-a-melhor-escolha-para-o-problema-como-um-todo-existem-problemas-para-os-quais-algoritmos-gulosos-n%C3%A3o-produzem-a-solu%C3%A7%C3%A3o-mais-eficiente-ou-%C3%B3tima"><code>Falso:</code> Embora métodos gulosos sejam eficazes em muitos casos, não há garantia de que sempre levem à solução ótima global. A escolha da &quot;melhor opção local&quot; em cada etapa pode não ser a melhor escolha para o problema como um todo. Existem problemas para os quais algoritmos gulosos não produzem a solução mais eficiente ou ótima.</h4>
+<p>Um exemplo clássico é o &quot;Problema da Mochila Fracionária&quot;, onde um algoritmo guloso pode não produzir a solução ótima. Portanto, embora os métodos gulosos sejam poderosos em muitos cenários, é importante avaliar caso a caso e verificar se a estratégia gulosa leva à solução ótima global.</p>
+<h2 id="5-alguns-tipos-de-banco-de-dados-e-certas-ferramentas-de-desenvolvimento-de-software-atualmente-utilizam-o-paradigma-da-orienta%C3%A7%C3%A3o-a-objetos-assinale-a-afirma%C3%A7%C3%A3o-correta-quanto-aos-fundamentos-da-tecnologia-de-orienta%C3%A7%C3%A3o-a-objetos">5. Alguns tipos de banco de dados e certas ferramentas de desenvolvimento de software atualmente utilizam o paradigma da orientação a objetos. Assinale a afirmação correta quanto aos fundamentos da tecnologia de orientação a objetos.</h2>
+<h4 id="a-as-classes-s%C3%A3o-inst%C3%A2ncias-dos-objetos-que-elas-pr%C3%B3prias-definem">A) As classes são instâncias dos objetos que elas próprias definem.</h4>
+<h4 id="b-o-conceito-de-heran%C3%A7a-torna-poss%C3%ADvel-que-uma-classe-herde-em-sua-defini%C3%A7%C3%A3o-vari%C3%A1veis-dados-e-m%C3%A9todos-c%C3%B3digo-de-outra-classe-j%C3%A1-existente"><code>B) O conceito de herança torna possível que uma classe &quot;herde&quot; em sua definição, variáveis (dados) e métodos (código) de outra classe já existente.</code></h4>
+<h4 id="c-a-interface-%C3%A9-um-recurso-da-orienta%C3%A7%C3%A3o-a-objeto-utilizado-em-java-que-define-a%C3%A7%C3%B5es-que-n%C3%A3o-devem-ser-obrigatoriamente-executadas-mas-que-cada-classe-pode-executar-de-forma-igual">C) A interface é um recurso da orientação a objeto utilizado em Java que define ações que não devem ser obrigatoriamente executadas, mas que cada classe pode executar de forma igual.</h4>
+<h4 id="d-o-conceito-de-polimorfismo-possibilita-que-um-objeto-seja-declarado-como-pertencendo-a-mais-de-uma-classe-simultaneamente">D) O conceito de polimorfismo possibilita que um objeto seja declarado como pertencendo a mais de uma classe simultaneamente.</h4>
+<h4 id="e-o-conceito-de-encapsulamento-prev%C3%AA-que-os-objetos-sejam-montados-a-partir-de-c%C3%A1psulas-especiais-que-permitem-o-acesso-aos-seus-dados-por-qualquer-entidade-externa">E) O conceito de encapsulamento prevê que os objetos sejam montados a partir de cápsulas especiais que permitem o acesso aos seus dados por qualquer entidade externa.</h4>
+<h3 id="explica%C3%A7%C3%A3o">Explicação:</h3>
+<p>A herança é um dos princípios fundamentais da orientação a objetos, permitindo que uma classe (chamada de classe derivada ou subclasse) herde características (variáveis e métodos) de outra classe (chamada de classe base ou superclasse).
+As demais afirmações (A, C, D e E) contêm conceitos que não são precisos ou são incorretos em relação aos fundamentos da orientação a objetos.</p>
+<h2 id="6-o-encapsulamento-%C3%A9-um-mecanismo-da-programa%C3%A7%C3%A3o-orientada-a-objetos-no-qual-os-membros-de-uma-classe-atributos-e-m%C3%A9todos-constituem-uma-caixa-preta-o-n%C3%ADvel-de-visibilidade-dos-membros-pode-ser-definido-pelos-modificadores-de-visibilidade-privado-p%C3%BAblico-e-protegido-com-rela%C3%A7%C3%A3o-ao-comportamento-gerado-pelos-modificadores-de-visibilidade-assinale-a-op%C3%A7%C3%A3o-correta">6. O encapsulamento é um mecanismo da programação orientada a objetos no qual os membros de uma classe (atributos e métodos) constituem uma caixa preta. O nível de visibilidade dos membros pode ser definido pelos modificadores de visibilidade &quot;privado&quot;, &quot;público&quot; e &quot;protegido&quot;. Com relação ao comportamento gerado pelos modificadores de visibilidade, assinale a opção correta.</h2>
+<h4 id="a-um-atributo-privado-pode-ser-acessado-pelos-m%C3%A9todos-privados-da-pr%C3%B3pria-classe-e-pelos-m%C3%A9todos-protegidos-das-suas-classes-descendentes">(A) Um atributo privado pode ser acessado pelos métodos privados da própria classe e pelos métodos protegidos das suas classes descendentes.</h4>
+<h4 id="b-um-atributo-privado-pode-ser-acessado-pelos-m%C3%A9todos-p%C3%BAblicos-da-pr%C3%B3pria-classe-e-pelos-m%C3%A9todos-p%C3%BAblicos-das-suas-classes-descendentes">(B) Um atributo privado pode ser acessado pelos métodos públicos da própria classe e pelos métodos públicos das suas classes descendentes.'</h4>
+<h4 id="c-um-membro-p%C3%BAblico-%C3%A9-vis%C3%ADvel-na-classe-%C3%A0-qual-ele-pertence-mas-n%C3%A3o-%C3%A9-vis%C3%ADvel-nas-suas-classes-descendentes">(C) Um membro público é visível na classe à qual ele pertence, mas não é visível nas suas classes descendentes.</h4>
+<h4 id="d-um-m%C3%A9todo-protegido-n%C3%A3o-pode-acessar-os-atributos-privados-e-declarados-na-pr%C3%B3pria-classe">(D) Um método protegido não pode acessar os atributos privados e declarados na própria classe.</h4>
+<h4 id="e-um-membro-protegido-%C3%A9-vis%C3%ADvel-na-classe-%C3%A0-qual-pertence-e-em-suas-classes-descendentes"><code>(E) Um membro protegido é visível na classe à qual pertence e em suas classes descendentes</code>.</h4>
+<h3 id="explica%C3%A7%C3%A3o">Explicação:</h3>
+<p>(A) Um atributo privado pode ser acessado pelos métodos privados da própria classe e pelos métodos protegidos das suas classes descendentes.</p>
+<p>Correção: Um atributo privado só pode ser acessado pelos métodos privados da própria classe, não pelos métodos protegidos das classes descendentes.
+(B) Um atributo privado pode ser acessado pelos métodos públicos da própria classe e pelos métodos públicos das suas classes descendentes.</p>
+<p>Correção: Um atributo privado só pode ser acessado pelos métodos privados da própria classe, não pelos métodos públicos das classes descendentes.
+(C) Um membro público é visível na classe à qual ele pertence, mas não é visível nas suas classes descendentes.</p>
+<p>Correção: Um membro público é visível tanto na classe à qual pertence quanto em suas classes descendentes.
+(D) Um método protegido não pode acessar os atributos privados e declarados na própria classe.</p>
+<p>Correção: Um método protegido pode acessar os atributos protegidos da própria classe, mas não os atributos privados.
+(E) Um membro protegido é visível na classe à qual pertence e em suas classes descendentes.</p>
+<p>Correção: Correta. Um membro protegido é visível na classe à qual pertence e nas suas classes descendentes.</p>
+
+</body>
+</html>
